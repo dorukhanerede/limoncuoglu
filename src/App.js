@@ -7,11 +7,12 @@ import Customer from "./components/Customer";
 
 function App() {
   return (
-    <div className="App">
+    // <div className="App">
+    <div>
       <Router>
         <Suspense fallback={<div>Loading...</div>} />
         <Switch>
-          <Route exact path="/" component={Customer} />
+          <Route path="/" component={Customer} />
           <Route path="/Admin" component={Admin} />
         </Switch>
       </Router>

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 class Header extends React.Component {
   render() {
@@ -53,9 +54,9 @@ class Header extends React.Component {
                 <div className="row align-items-center">
                   <div className="col-xl-3 col-lg-2">
                     <div className="logo">
-                      <a>
+                      <Link to="/">
                         <img src="img/logo.png" alt="" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="col-xl-6 col-lg-7">
@@ -63,9 +64,12 @@ class Header extends React.Component {
                       <nav>
                         <ul id="navigation">
                           <li>
-                            <a className="active">home</a>
+                            <Link to="/" className="active">home</Link>
                           </li>
                           <li>
+                            <Link to="/Team">team</Link>
+                          </li>
+                          {/* <li>
                             <a>
                               pages <i className="ti-angle-down" />
                             </a>
@@ -80,17 +84,14 @@ class Header extends React.Component {
                                 <a>elements</a>
                               </li>
                             </ul>
+                          </li> */}
+                          <li>
+                            <Link to="/WorkingAreas">Case study</Link>
                           </li>
                           <li>
-                            <a>Services</a>
-                          </li>
-                          <li>
-                            <a>Case study</a>
-                          </li>
-                          <li>
-                            <a>
-                              blog <i className="ti-angle-down" />
-                            </a>
+                            <Link to="/News">
+                              news <i className="ti-angle-down" />
+                            </Link>
                             <ul className="submenu">
                               <li>
                                 <a>blog</a>
@@ -101,7 +102,7 @@ class Header extends React.Component {
                             </ul>
                           </li>
                           <li>
-                            <a>Contact</a>
+                            <Link to="/Contact">Contact</Link>
                           </li>
                         </ul>
                       </nav>

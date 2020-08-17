@@ -1,7 +1,12 @@
 import React from "react";
+import Header from "../components/Header";
 
-function Team() {
-  return <div>Team</div>;
+class Team extends React.Component {
+  render() {
+    return <section>
+      <Header />
+    </section>;
+  }
 }
 
 export default Team;

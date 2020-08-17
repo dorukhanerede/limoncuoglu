@@ -1,5 +1,8 @@
+import React from "react";
+
 class ServiceArea extends React.Component {
   render() {
+    return(
     <div className="service_area">
       <div className="container">
         <div className="row">
@@ -84,6 +87,9 @@ class ServiceArea extends React.Component {
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+    );
   }
 }
+
+export default ServiceArea;

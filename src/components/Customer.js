@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import React, { Component } from "react";
 import Home from "../pages/Home";
 import About from "../pages/About";
@@ -8,20 +8,22 @@ import Team from "../pages/Team";
 import WorkingAreas from "../pages/WorkingAreas";
 import logo from "../logo.svg";
 import Header from "./Header";
-import Meta from "./Meta";
+import Footer from "./Footer";
 
 class Customer extends Component {
   render() {
     return (
       <div>
         {/* <Meta /> */}
-        <Header />
+        {/* <Header /> */}
         {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header> */}
-        <BrowserRouter>
+        {/* <SliderArea />
+        <ServiceArea /> */}
+        <Router>
           <div>
-            <div className="container mainContent">
+            {/* <div className="container mainContent"> */}
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/About" component={About} />
@@ -30,9 +32,10 @@ class Customer extends Component {
                 <Route exact path="/Team" component={Team} />
                 <Route exact path="/WorkingAreas" component={WorkingAreas} />
               </Switch>
-            </div>
+            {/* </div> */}
           </div>
-        </BrowserRouter>
+        </Router>
+        <Footer/>
       </div>
     );
   }
