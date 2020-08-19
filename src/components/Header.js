@@ -1,17 +1,17 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 class Header extends React.Component {
   render() {
     return (
       <header>
         <div className="header-area ">
-          <div className="header-top_area d-none d-lg-block">
+          {/* <div className="header-top_area d-none d-lg-block">
             <div className="container">
               <div className="row">
                 <div className="col-xl-5 col-md-5 ">
                   <div className="header_left">
-                    <p>Welcome to Limoncuoğlu Law</p>
+                    <p>Limoncuoğlu Hukuk Bürosuna Hoşgeldiniz</p>
                   </div>
                 </div>
                 <div className="col-xl-7 col-md-7">
@@ -47,74 +47,81 @@ class Header extends React.Component {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div id="sticky-header" className="main-header-area">
             <div className="container">
               <div className="header_bottom_border">
                 <div className="row align-items-center">
-                  <div className="col-xl-3 col-lg-2">
+                  <div className="col-xl-4 col-lg-4">
                     <div className="logo">
-                      <Link to="/">
-                        <img src="img/logo.png" alt="" />
+                      <Link
+                        to={{
+                          pathname: "/",
+                          state: {
+                            from: "root",
+                          },
+                        }}
+                      >
+                        <img
+                          src="img/limoncuoglu_logo_row_white.png"
+                          alt=""
+                          height="39"
+                          // style={{
+                          //   marginTop: "-18.45px",
+                          //   marginBottom: "-18.45px"
+                          // }}
+                        />
+                        {/* <img
+                          src="img/limoncuoglu_logo_yazi_white.png"
+                          alt=""
+                          height="39"
+                          style={{ marginLeft: "4px" }}
+                        /> */}
                       </Link>
                     </div>
                   </div>
-                  <div className="col-xl-6 col-lg-7">
+                  <div className="col-xl-8 col-lg-8">
                     <div className="main-menu  d-none d-lg-block">
                       <nav>
                         <ul id="navigation">
                           <li>
-                            <Link to="/" className="active">home</Link>
+                            <NavLink exact to="/">
+                              anasayfa
+                            </NavLink>
                           </li>
                           <li>
-                            <Link to="/Team">team</Link>
-                          </li>
-                          {/* <li>
-                            <a>
-                              pages <i className="ti-angle-down" />
-                            </a>
+                            <NavLink to="/About">
+                              kurumsal <i className="ti-angle-down" />
+                            </NavLink>
                             <ul className="submenu">
                               <li>
-                                <a>case details</a>
+                                <NavLink to="/About">hakkımızda</NavLink>
                               </li>
                               <li>
-                                <a>about</a>
-                              </li>
-                              <li>
-                                <a>elements</a>
-                              </li>
-                            </ul>
-                          </li> */}
-                          <li>
-                            <Link to="/WorkingAreas">Case study</Link>
-                          </li>
-                          <li>
-                            <Link to="/News">
-                              news <i className="ti-angle-down" />
-                            </Link>
-                            <ul className="submenu">
-                              <li>
-                                <a>blog</a>
-                              </li>
-                              <li>
-                                <a>single-blog</a>
+                                <NavLink to="/Team">ekibimiz</NavLink>
                               </li>
                             </ul>
                           </li>
                           <li>
-                            <Link to="/Contact">Contact</Link>
+                            <NavLink to="/WorkingAreas">hizmetlerimiz</NavLink>
+                          </li>
+                          <li>
+                            <NavLink to="/News">bültenler</NavLink>
+                          </li>
+                          <li>
+                            <NavLink to="/Contact">iletişim</NavLink>
                           </li>
                         </ul>
                       </nav>
                     </div>
                   </div>
-                  <div className="col-xl-3 col-lg-3 d-none d-lg-block">
+                  {/* <div className="col-xl-3 col-lg-3 d-none d-lg-block">
                     <div className="Appointment">
                       <div className="book_btn d-none d-lg-block">
                         <a>Get a Quote</a>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-12">
                     <div className="mobile_menu d-block d-lg-none" />
                   </div>
