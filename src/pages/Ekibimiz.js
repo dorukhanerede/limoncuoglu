@@ -5,7 +5,7 @@ import TeamArea from "../components/TeamArea";
 function Ekibimiz(language) {
   return (
     <section>
-      {PageHeader("iletişim", language)}
+      {PageHeader("ekibimiz", language)}
       <TeamArea language={language} />
     </section>
   );

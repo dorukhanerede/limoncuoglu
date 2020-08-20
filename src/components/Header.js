@@ -2,9 +2,9 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 class Header extends React.Component {
-  changeLanguage(language) {
+  changeLanguage = (language) => {
     this.props.setLanguage(language);
-  }
+  };
 
   render() {
     //vars
@@ -44,58 +44,24 @@ class Header extends React.Component {
         bültenlerNav = "newsletters";
         iletişimNav = "Contact";
         break;
+      default:
+        anasayfaNav = "anasayfa";
+        kurumsalNav = "kurumsal";
+        hakkımızdaNav = "hakkımızda";
+        ekibimizNav = "ekibimiz";
+        hizmetlerimizNav = "hizmetlerimiz";
+        bültenlerNav = "bültenler";
+        iletişimNav = "iletişim";
     }
 
     return (
       <header>
         <div className="header-area ">
-          {/* <div className="header-top_area d-none d-lg-block">
-            <div className="container">
-              <div className="row">
-                <div className="col-xl-5 col-md-5 ">
-                  <div className="header_left">
-                    <p>Limoncuoğlu Hukuk Bürosuna Hoşgeldiniz</p>
-                  </div>
-                </div>
-                <div className="col-xl-7 col-md-7">
-                  <div className="header_right d-flex">
-                    <div className="short_contact_list">
-                      <ul>
-                        <li>
-                          <a>
-                            {" "}
-                            <i className="fa fa-envelope" /> info@docmed.com
-                          </a>
-                        </li>
-                        <li>
-                          <a>
-                            {" "}
-                            <i className="fa fa-phone" /> 1601-609 6780
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="social_media_links">
-                      <a onClick={() => this.props.lang("tr")}>
-                        <i className="fa fa-linkedin" />
-                      </a>
-                      <a onClick={() => this.props.lang("en")}>
-                        <i className="fa fa-facebook" />
-                      </a>
-                      <a onClick={() => this.props.lang("fr")}>
-                        <i className="fa fa-google-plus" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
           <div id="sticky-header" className="main-header-area">
             <div className="container">
               <div className="header_bottom_border">
                 <div className="row align-items-center">
-                  <div className="col-xl-4 col-lg-4">
+                  <div className="col-xl-4 col-lg-3">
                     <div className="logo">
                       <Link
                         to={{
@@ -113,7 +79,7 @@ class Header extends React.Component {
                       </Link>
                     </div>
                   </div>
-                  <div className="col-xl-8 col-lg-8">
+                  <div className="col-xl-8 col-lg-9">
                     <div className="main-menu  d-none d-lg-block">
                       <nav>
                         <ul id="navigation">
@@ -148,17 +114,21 @@ class Header extends React.Component {
                           <li>
                             <NavLink to="/İletişim">{iletişimNav}</NavLink>
                           </li>
-                          <li>
-                            <a onClick={() => this.changeLanguage("tr")}>
+                          <li className="change-language">
+                            <a
+                              onClick={() => {
+                                this.changeLanguage("tr");
+                              }}
+                            >
                               <img src="img/elements/tr.png" width="30"></img>
                             </a>
                           </li>
-                          <li>
+                          <li className="change-language">
                             <a onClick={() => this.changeLanguage("en")}>
                               <img src="img/elements/f3.jpg" width="30"></img>
                             </a>
                           </li>
-                          <li>
+                          <li className="change-language">
                             <a onClick={() => this.changeLanguage("fr")}>
                               <img src="img/elements/fr.png" width="30"></img>
                             </a>
@@ -167,13 +137,6 @@ class Header extends React.Component {
                       </nav>
                     </div>
                   </div>
-                  {/* <div className="col-xl-3 col-lg-3 d-none d-lg-block">
-                    <div className="Appointment">
-                      <div className="book_btn d-none d-lg-block">
-                        <a>Get a Quote</a>
-                      </div>
-                    </div>
-                  </div> */}
                   <div className="col-12">
                     <div className="mobile_menu d-block d-lg-none" />
                   </div>

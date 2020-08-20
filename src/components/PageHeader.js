@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function PageHeader(headerName, language) {
   let headerText;
@@ -29,10 +28,10 @@ function PageHeader(headerName, language) {
       else if (language == "en") headerText = "Contact";
       else headerText = "fransızca";
       break;
+    default:
+      headerText = window.location.pathname;
+      break;
   }
-
-  console.log(headerName);
-  console.log(language);
 
   return (
     <div className="bradcam_area bradcam_bg_1">

@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 
 function Bültenler(language) {

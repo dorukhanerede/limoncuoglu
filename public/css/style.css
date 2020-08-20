@@ -4069,7 +4069,7 @@ h3 {
 }
 
 /* line 81, ../../Arafath/CL/CL October/216. Consulting/HTML/scss/_service.scss */
-/* .service_area .col-xl-3:nth-child(6) .single_service .service_icon {
+.service_area .col-xl-3:nth-child(6) .single_service .service_icon {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#a64eee+0,3c35ce+100 */
   background: #a64eee;
   /* Old browsers */
@@ -4081,7 +4081,7 @@ h3 {
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a64eee', endColorstr='#3c35ce',GradientType=0 );
   /* IE6-9 */
-} */
+}
 
 /* line 1, ../../Arafath/CL/CL October/216. Consulting/HTML/scss/_experts.scss */
 .expert_doctors_area {
@@ -4113,6 +4113,13 @@ h3 {
   /* line 12, ../../Arafath/CL/CL October/216. Consulting/HTML/scss/_experts.scss */
   .expert_doctors_area .doctors_title h3 {
     font-size: 24px;
+  }
+}
+
+@media (max-width: 991px) {
+  /* line 1182, ../../Arafath/CL/CL October/216. Consulting/HTML/scss/_blog.scss */
+  .change-language {
+    display: none !important;
   }
 }
 
