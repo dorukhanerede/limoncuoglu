@@ -8,14 +8,14 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function Home() {
+function Anasayfa(language) {
   return (
     <section>
-      <AboutInfoArea />
-      <InformationArea />
-      <ServiceArea />
+      <AboutInfoArea language={language} />
+      <InformationArea language={language} />
+      <ServiceArea language={language} />
     </section>
   );
 }
 
-export default Home;
+export default Anasayfa;

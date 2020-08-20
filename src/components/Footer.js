@@ -1,7 +1,61 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import Hakkımızda from "../pages/Hakkımızda";
 
 class Footer extends React.Component {
   render() {
+    let anasayfaNav,
+      kurumsalNav,
+      hakkımızdaNav,
+      ekibimizNav,
+      hizmetlerimizNav,
+      bültenlerNav,
+      iletişimNav;
+
+    let sayfalarHeader, sonYazılarHeader, iletişimHeader;
+
+    switch (this.props.language) {
+      case "tr":
+        anasayfaNav = "Anasayfa";
+        kurumsalNav = "Kurumsal";
+        hakkımızdaNav = "Hakkımızda";
+        ekibimizNav = "Ekibimiz";
+        hizmetlerimizNav = "Hizmetlerimiz";
+        bültenlerNav = "Bültenler";
+        iletişimNav = "İletişim";
+
+        sayfalarHeader = "Sayfalar";
+        sonYazılarHeader = "En Son Yazılarımız";
+        iletişimHeader = "İletişim İçin";
+        break;
+      case "en":
+        anasayfaNav = "Home";
+        kurumsalNav = "Corporate";
+        hakkımızdaNav = "About";
+        ekibimizNav = "Team";
+        hizmetlerimizNav = "Services";
+        bültenlerNav = "News";
+        iletişimNav = "Contact";
+
+        sayfalarHeader = "Pages";
+        sonYazılarHeader = "Latest Blogs";
+        iletişimHeader = "Contact";
+        break;
+      case "fr":
+        anasayfaNav = "Page d'accueil";
+        kurumsalNav = "Enterprise";
+        hakkımızdaNav = "à propos de nous";
+        ekibimizNav = "notre équipe";
+        hizmetlerimizNav = "Nos services";
+        bültenlerNav = "newsletters";
+        iletişimNav = "Contact";
+
+        sayfalarHeader = "Sayfalar";
+        sonYazılarHeader = "En Son Yazılarımız";
+        iletişimHeader = "Contact";
+        break;
+    }
+
     return (
       <footer className="footer">
         <div className="footer_top">
@@ -9,23 +63,66 @@ class Footer extends React.Component {
             <div className="row">
               <div className="col-xl-3 col-md-6 col-lg-3">
                 <div className="footer_widget">
-                  <div className="footer_logo">
-                    <a href="#">
-                      <img
-                        src="img/limoncuoglu_logo_2.png"
-                        alt=""
-                        height="60"
-                        style={{ marginRight: "3px" }}
-                      />
-                      <img
-                        src="img/limoncuoglu_logo_yazi.png"
-                        alt=""
-                        height="60"
-                      />
-                    </a>
-                  </div>
+                  <h3 className="footer_title">{sayfalarHeader}</h3>
+                  <ul>
+                    <li>
+                      <NavLink exact to="/">
+                        {anasayfaNav}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink exact to="/Hakkımızda">
+                        {hakkımızdaNav}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink exact to="/Ekibimiz">
+                        {ekibimizNav}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink exact to="/Hizmetlerimiz">
+                        {hizmetlerimizNav}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink exact to="/Bültenler">
+                        {bültenlerNav}
+                      </NavLink>
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink exact to="/İletişim">
+                        {iletişimNav}
+                      </NavLink>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-xl-3 col-md-6 col-lg-2">
+                <div className="footer_widget">
+                  <h3 className="footer_title">{sonYazılarHeader}</h3>
+                  <ul>
+                    <li>
+                      <a href="#">Blog 1</a>
+                    </li>
+                    <li>
+                      <a href="#">Blog 2</a>
+                    </li>
+                    <li>
+                      <a href="#"> Blog 3</a>
+                    </li>
+                    <li>
+                      <a href="#">Blog 4</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-xl-3 col-md-6 col-lg-3">
+                <div className="footer_widget">
+                  <h3 className="footer_title">{iletişimHeader}</h3>
                   <p>
-                    <a href="#">conbusi@support.com</a> <br />
+                    <a href="#">efelimoncuoglu@gmail.com</a> <br />
                     +90 232 464 00 54 <br />
                     <a
                       target="_blank"
@@ -56,58 +153,13 @@ class Footer extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-2 col-md-6 col-lg-3">
+              <div className="col-xl-3 col-md-6 col-lg-3">
                 <div className="footer_widget">
-                  <h3 className="footer_title">Çalışma Alanları</h3>
-                  <ul>
-                    <li>
-                      <a href="#">Marketing &amp; SEO</a>
-                    </li>
-                    <li>
-                      <a href="#"> Startup</a>
-                    </li>
-                    <li>
-                      <a href="#">Finance solution</a>
-                    </li>
-                    <li>
-                      <a href="#">Food</a>
-                    </li>
-                    <li>
-                      <a href="#">Travel</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="col-xl-2 col-md-6 col-lg-2">
-                <div className="footer_widget">
-                  <h3 className="footer_title">En son yazılarımız</h3>
-                  <ul>
-                    <li>
-                      <a href="#">About</a>
-                    </li>
-                    <li>
-                      <a href="#">Blog</a>
-                    </li>
-                    <li>
-                      <a href="#"> Contact</a>
-                    </li>
-                    <li>
-                      <a href="#">Appointment</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="col-xl-4 col-md-6 col-lg-4">
-                <div className="footer_widget">
-                  <h3 className="footer_title">Subscribe</h3>
-                  <form action="#" className="newsletter_form">
-                    <input type="text" placeholder="Enter your mail" />
-                    <button type="submit">Subscribe</button>
-                  </form>
-                  <p className="newsletter_text">
-                    Esteem spirit temper too say adieus who direct esteem
-                    esteems luckily.
-                  </p>
+                  <div className="footer_logo">
+                    <a href="#">
+                      <img src="img/limoncuoglu_logo.png" alt="" height="150" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

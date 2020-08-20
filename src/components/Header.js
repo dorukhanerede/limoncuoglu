@@ -2,7 +2,50 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 class Header extends React.Component {
+  changeLanguage(language) {
+    this.props.setLanguage(language);
+  }
+
   render() {
+    //vars
+    let anasayfaNav;
+    let kurumsalNav;
+    let hakkımızdaNav;
+    let ekibimizNav;
+    let hizmetlerimizNav;
+    let bültenlerNav;
+    let iletişimNav;
+
+    switch (this.props.language) {
+      case "tr":
+        anasayfaNav = "anasayfa";
+        kurumsalNav = "kurumsal";
+        hakkımızdaNav = "hakkımızda";
+        ekibimizNav = "ekibimiz";
+        hizmetlerimizNav = "hizmetlerimiz";
+        bültenlerNav = "bültenler";
+        iletişimNav = "iletişim";
+        break;
+      case "en":
+        anasayfaNav = "Home";
+        kurumsalNav = "Corporate";
+        hakkımızdaNav = "About";
+        ekibimizNav = "Team";
+        hizmetlerimizNav = "services";
+        bültenlerNav = "News";
+        iletişimNav = "contact";
+        break;
+      case "fr":
+        anasayfaNav = "Page d'accueil";
+        kurumsalNav = "Enterprise";
+        hakkımızdaNav = "à propos de nous";
+        ekibimizNav = "notre équipe";
+        hizmetlerimizNav = "Nos services";
+        bültenlerNav = "newsletters";
+        iletişimNav = "Contact";
+        break;
+    }
+
     return (
       <header>
         <div className="header-area ">
@@ -33,13 +76,13 @@ class Header extends React.Component {
                       </ul>
                     </div>
                     <div className="social_media_links">
-                      <a>
+                      <a onClick={() => this.props.lang("tr")}>
                         <i className="fa fa-linkedin" />
                       </a>
-                      <a>
+                      <a onClick={() => this.props.lang("en")}>
                         <i className="fa fa-facebook" />
                       </a>
-                      <a>
+                      <a onClick={() => this.props.lang("fr")}>
                         <i className="fa fa-google-plus" />
                       </a>
                     </div>
@@ -66,17 +109,7 @@ class Header extends React.Component {
                           src="img/limoncuoglu_logo_row_white.png"
                           alt=""
                           height="39"
-                          // style={{
-                          //   marginTop: "-18.45px",
-                          //   marginBottom: "-18.45px"
-                          // }}
                         />
-                        {/* <img
-                          src="img/limoncuoglu_logo_yazi_white.png"
-                          alt=""
-                          height="39"
-                          style={{ marginLeft: "4px" }}
-                        /> */}
                       </Link>
                     </div>
                   </div>
@@ -86,30 +119,49 @@ class Header extends React.Component {
                         <ul id="navigation">
                           <li>
                             <NavLink exact to="/">
-                              anasayfa
+                              {anasayfaNav}
                             </NavLink>
                           </li>
                           <li>
-                            <NavLink to="/About">
-                              kurumsal <i className="ti-angle-down" />
+                            <NavLink to="/Hakkımızda">
+                              {kurumsalNav} <i className="ti-angle-down" />
                             </NavLink>
                             <ul className="submenu">
                               <li>
-                                <NavLink to="/About">hakkımızda</NavLink>
+                                <NavLink to="/Hakkımızda">
+                                  {hakkımızdaNav}
+                                </NavLink>
                               </li>
                               <li>
-                                <NavLink to="/Team">ekibimiz</NavLink>
+                                <NavLink to="/Ekibimiz">{ekibimizNav}</NavLink>
                               </li>
                             </ul>
                           </li>
                           <li>
-                            <NavLink to="/WorkingAreas">hizmetlerimiz</NavLink>
+                            <NavLink to="/Hizmetlerimiz">
+                              {hizmetlerimizNav}
+                            </NavLink>
                           </li>
                           <li>
-                            <NavLink to="/News">bültenler</NavLink>
+                            <NavLink to="/Bültenler">{bültenlerNav}</NavLink>
                           </li>
                           <li>
-                            <NavLink to="/Contact">iletişim</NavLink>
+                            <NavLink to="/İletişim">{iletişimNav}</NavLink>
+                          </li>
+                          <li>
+                            <a onClick={() => this.changeLanguage("tr")}>
+                              <img src="img/elements/tr.png" width="30"></img>
+                            </a>
+                          </li>
+                          <li>
+                            <a onClick={() => this.changeLanguage("en")}>
+                              <img src="img/elements/f3.jpg" width="30"></img>
+                            </a>
+                          </li>
+                          <li>
+                            <a onClick={() => this.changeLanguage("fr")}>
+                              <img src="img/elements/fr.png" width="30"></img>
+                            </a>
                           </li>
                         </ul>
                       </nav>

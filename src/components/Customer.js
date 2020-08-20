@@ -3,40 +3,48 @@ import {
   Route,
   Switch,
   useLocation,
+  Redirect,
 } from "react-router-dom";
-import React, { Component } from "react";
-import Home from "../pages/Home";
-import About from "../pages/About";
-import Contact from "../pages/Contact";
-import News from "../pages/News";
-import Team from "../pages/Team";
-import WorkingAreas from "../pages/WorkingAreas";
+import React, { useState } from "react";
+import Hakkımızda from "../pages/Hakkımızda";
+import İletişim from "../pages/İletişim";
+import Bültenler from "../pages/Bültenler";
+import Ekibimiz from "../pages/Ekibimiz";
+import Hizmetlerimiz from "../pages/Hizmetlerimiz";
 import logo from "../logo.svg";
 import Header from "./Header";
 import Footer from "./Footer";
 import Meta from "./Meta";
 import SliderArea from "./SliderArea";
+import Anasayfa from "../pages/Anasayfa";
 
 function Customer() {
   let location = useLocation();
+
+  const [language, setLanguage] = useState("tr");
+
   return (
     <div>
-      <Header />
+      <Header setLanguage={setLanguage} language={language} />
       <section
         className="animate__animated  animate__fadeInDown"
         style={{ display: location.pathname == "/" ? "" : "none" }}
       >
-        <SliderArea />
+        <SliderArea language={language} />
       </section>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/About" component={About} />
-        <Route exact path="/Contact" component={Contact} />
-        <Route exact path="/News" component={News} />
-        <Route exact path="/Team" component={Team} />
-        <Route exact path="/WorkingAreas" component={WorkingAreas} />
+        <Route exact path="/" render={() => Anasayfa(language)} />
+        <Route exact path="/Hakkımızda" render={() => Hakkımızda(language)} />
+        <Route exact path="/İletişim" render={() => İletişim(language)} />
+        <Route exact path="/Bültenler" render={() => Bültenler(language)} />
+        <Route exact path="/Ekibimiz" render={() => Ekibimiz(language)} />
+        <Route
+          exact
+          path="/Hizmetlerimiz"
+          render={() => Hizmetlerimiz(language)}
+        />
       </Switch>
-      <Footer />
+      <Footer language={language} />
     </div>
   );
 }
