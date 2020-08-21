@@ -1,57 +1,21 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-function Header(props) {
+function HeaderFR(props) {
   function changeLanguage(newValue) {
     props.setLanguage(newValue);
   }
 
   //vars
-  let anasayfaNav = "anasayfa";
-  let kurumsalNav = "kurumsal";
-  let hakkımızdaNav = "hakkımızda";
-  let ekibimizNav = "ekibimiz";
-  let hizmetlerimizNav = "hizmetlerimiz";
-  let bültenlerNav = "bültenler";
-  let iletişimNav = "iletişim";
+  let anasayfaNav = "Page d'accueil";
+  let kurumsalNav = "Enterprise";
+  let hakkımızdaNav = "à propos de nous";
+  let ekibimizNav = "notre équipe";
+  let hizmetlerimizNav = "Nos services";
+  let bültenlerNav = "newsletters";
+  let iletişimNav = "Contact";
 
-  // switch (this.props.language) {
-  //   case "tr":
-  //     anasayfaNav = "anasayfa";
-  //     kurumsalNav = "kurumsal";
-  //     hakkımızdaNav = "hakkımızda";
-  //     ekibimizNav = "ekibimiz";
-  //     hizmetlerimizNav = "hizmetlerimiz";
-  //     bültenlerNav = "bültenler";
-  //     iletişimNav = "iletişim";
-  //     break;
-  //   case "en":
-  //     anasayfaNav = "Home";
-  //     kurumsalNav = "Corporate";
-  //     hakkımızdaNav = "About";
-  //     ekibimizNav = "Team";
-  //     hizmetlerimizNav = "services";
-  //     bültenlerNav = "News";
-  //     iletişimNav = "contact";
-  //     break;
-  //   case "fr":
-  //     anasayfaNav = "Page d'accueil";
-  //     kurumsalNav = "Enterprise";
-  //     hakkımızdaNav = "à propos de nous";
-  //     ekibimizNav = "notre équipe";
-  //     hizmetlerimizNav = "Nos services";
-  //     bültenlerNav = "newsletters";
-  //     iletişimNav = "Contact";
-  //     break;
-  //   default:
-  //     anasayfaNav = "anasayfa";
-  //     kurumsalNav = "kurumsal";
-  //     hakkımızdaNav = "hakkımızda";
-  //     ekibimizNav = "ekibimiz";
-  //     hizmetlerimizNav = "hizmetlerimiz";
-  //     bültenlerNav = "bültenler";
-  //     iletişimNav = "iletişim";
-  // }
+  // this.myRef.current.slicknav();
 
   return (
     <header>
@@ -83,32 +47,8 @@ function Header(props) {
                     <nav>
                       <ul id="navigation">
                         <li>
-                          <NavLink
-                            exact
-                            to="/"
-                            style={{
-                              display: props.language == "tr" ? "" : "none",
-                            }}
-                          >
-                            anasayfa
-                          </NavLink>
-                          <NavLink
-                            exact
-                            to="/"
-                            style={{
-                              display: props.language == "en" ? "" : "none",
-                            }}
-                          >
-                            Home
-                          </NavLink>
-                          <NavLink
-                            exact
-                            to="/"
-                            style={{
-                              display: props.language == "fr" ? "" : "none",
-                            }}
-                          >
-                            fr
+                          <NavLink exact to="/">
+                            {anasayfaNav}
                           </NavLink>
                         </li>
                         <li>
@@ -138,27 +78,18 @@ function Header(props) {
                           <NavLink to="/İletişim">{iletişimNav}</NavLink>
                         </li>
                         <li className="change-language">
-                          <Link
-                            to={window.location.pathname.substring(
-                              window.location.pathname.lastIndexOf("/") + 1,
-                              window.location.pathname.length
-                            )}
+                          <a
+                            onClick={() => {
+                              changeLanguage("tr");
+                            }}
                           >
                             <img src="img/elements/tr.png" width="30"></img>
-                          </Link>
+                          </a>
                         </li>
                         <li className="change-language">
-                          <Link
-                            to={
-                              "/en" +
-                              window.location.pathname.substring(
-                                1,
-                                window.location.pathname.length
-                              )
-                            }
-                          >
+                          <a onClick={() => changeLanguage("en")}>
                             <img src="img/elements/f3.jpg" width="30"></img>
-                          </Link>
+                          </a>
                         </li>
                         <li className="change-language">
                           <a onClick={() => changeLanguage("fr")}>
@@ -181,4 +112,4 @@ function Header(props) {
   );
 }
 
-export default Header;
+export default HeaderFR;

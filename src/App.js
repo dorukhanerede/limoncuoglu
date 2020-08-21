@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Admin from "./admin-panel/Admin";
 import Customer from "./components/Customer";
+import CustomerEN from "./components/CustomerEN";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Suspense fallback={<div>Loading...</div>} />
         <Switch>
           <Route path="/" component={Customer}></Route>
+          <Route path="/en" component={CustomerEN}></Route>
           <Route path="/Admin" component={Admin} />
         </Switch>
       </Router>

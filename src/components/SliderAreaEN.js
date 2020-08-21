@@ -2,20 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 class SliderArea extends React.Component {
-  componentDidMount() {
-    const script = document.createElement("script");
-    script.id = "myScript";
-    script.src = "js/jquery.slicknav.min.js";
-    script.async = true;
-
-    document.body.appendChild(script);
-  }
-
-  componentWillUnmount() {
-    const script = document.getElementById("myScript");
-    script.parentNode.removeChild(script);
-  }
-
   changeLanguage = (language) => {
     this.props.setLanguage(language);
   };
