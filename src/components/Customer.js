@@ -1,4 +1,4 @@
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, useParams } from "react-router-dom";
 import React, { useState } from "react";
 import Hakkımızda from "../pages/Hakkımızda";
 import İletişim from "../pages/İletişim";
@@ -12,7 +12,6 @@ import Anasayfa from "../pages/Anasayfa";
 
 function Customer() {
   let location = useLocation();
-
   const [language, setLanguage] = useState("tr");
 
   return (

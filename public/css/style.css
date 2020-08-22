@@ -796,6 +796,19 @@ h3 {
   }
 }
 
+@media (min-width: 991px) {
+  .nav_dropdown {
+    display: none;
+  }
+  .slicknav_menu {
+    display: none;
+  }
+}
+
+.height-1 {
+  height: 1px;
+}
+
 /* line 44, ../../Arafath/CL/CL October/216. Consulting/HTML/scss/_slick-nav.scss */
 .slicknav_menu .slicknav_nav .slicknav_btn {
   background-color: transparent;
