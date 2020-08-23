@@ -92,6 +92,27 @@ class ServiceArea extends React.Component {
         service18 = "Enerji & Doğal Kaynaklar Hukuku";
         dahaFazlaButon = "Fransızca";
         break;
+      default:
+        header = "Hizmetlerimiz";
+        service1 = "Avrupa Topluluğu Mevzuatı";
+        service2 = "Banka & SPK Mevzuatı";
+        service3 = "Emlak Hukuku";
+        service4 = "Hükümetlerle olan İlişkiler";
+        service5 = "İş & Toplu Sözleşme Mevzuatı";
+        service6 = "Sözleşmeler Hukuku";
+        service7 = "Ticaret Hukuku";
+        service8 = "Uluslararası Ticaret Hukuku";
+        service9 = "Vergi Hukuku";
+        service10 = "Alternatif İhtilaf Çözme Usulleri";
+        service11 = "Deniz Hukuku";
+        service12 = "Fikri & Sınai Haklar Mevzuatı";
+        service13 = "İcra İflas Hukuku";
+        service14 = "Rekabet Hukuku";
+        service15 = "Şirketler Hukuku";
+        service16 = "Uluslararası İşletme Mevzuatı";
+        service17 = "Yabancı Yatırım Mevzuatı";
+        service18 = "Enerji & Doğal Kaynaklar Hukuku";
+        dahaFazlaButon = "Daha Fazla";
     }
 
     return (
