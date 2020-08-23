@@ -100,10 +100,7 @@ class SliderArea extends React.Component {
     // );
 
     return (
-      <div
-        className="slider_area"
-        // style={{ display: this.props.isHome ? "" : "none" }}
-      >
+      <div className="slider_area">
         <div className="slider_active owl-carousel">
           <div className="single_slider  d-flex align-items-center slider_bg_1 overlay2">
             <div className="container">
@@ -114,7 +111,7 @@ class SliderArea extends React.Component {
                     <h3>{header1}</h3>
                     <h2>{subheader1}</h2>
                     <div className="video_service_btn">
-                      <Link to="/Contact" className="boxed-btn3">
+                      <Link to="/İletişim" className="boxed-btn3">
                         {buton1}
                       </Link>
                     </div>
@@ -132,9 +129,9 @@ class SliderArea extends React.Component {
                     <h3>{header2}</h3>
                     <h2>{subheader2}</h2>
                     <div className="video_service_btn">
-                      <a href="#" className="boxed-btn3">
+                      <Link to="/Hizmetlerimiz" className="boxed-btn3">
                         {buton2}
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -149,9 +146,9 @@ class SliderArea extends React.Component {
                     {/* {languageDiv} */}
                     <h3>{header3}</h3>
                     <div className="video_service_btn">
-                      <a href="#" className="boxed-btn3">
+                      <Link to="/Ekibimiz" className="boxed-btn3">
                         {buton3}
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -167,9 +164,9 @@ class SliderArea extends React.Component {
                     <h3>{header4}</h3>
                     <h2>{subheader4}</h2>
                     <div className="video_service_btn">
-                      <a href="#" className="boxed-btn3">
+                      <Link to="/Bültenler" className="boxed-btn3">
                         {buton4}
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>

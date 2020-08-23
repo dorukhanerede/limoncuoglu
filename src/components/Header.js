@@ -226,7 +226,7 @@ class Header extends React.Component {
                         </li>
 
                         <li className="slicknav_collapsed slicknav_parent">
-                          <a
+                          <div
                             role="menuitem"
                             aria-haspopup="true"
                             tabIndex="-1"
@@ -250,7 +250,7 @@ class Header extends React.Component {
                             <span className="slicknav_arrow">
                               {this.state.submenuIsOn ? "-" : "+"}
                             </span>
-                          </a>
+                          </div>
                           <ul
                             className={
                               this.state.submenuIsOn

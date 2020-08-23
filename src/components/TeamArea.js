@@ -26,7 +26,9 @@ class TeamArea extends React.Component {
 
     let foundingSectionTitle;
     let attorneySectionTitle;
-    let attorneys = [
+    let partnerSectionTitle;
+
+    let partners = [
       {
         tr: {
           name: "Sabit Emre Limoncuoğlu",
@@ -53,6 +55,9 @@ class TeamArea extends React.Component {
           img: "img/team/3.png",
         },
       },
+    ];
+
+    let attorneys = [
       {
         tr: {
           name: "İlayda Melis Alan",
@@ -112,18 +117,21 @@ class TeamArea extends React.Component {
         header = "Sorularınız için";
         foundingSectionTitle = "Kurucumuz";
         attorneySectionTitle = "Kadromuz";
+        partnerSectionTitle = "Partner";
         break;
 
       case "en":
         header = "For Any Information";
         foundingSectionTitle = "Founder";
         attorneySectionTitle = "Our Team";
+        partnerSectionTitle = "Partner";
         break;
 
       case "fr":
         header = "fransızca";
         foundingSectionTitle = "FR Kurucumuz";
         attorneySectionTitle = "FR Kadromuz";
+        partnerSectionTitle = "FR Partner";
         break;
     }
 
@@ -138,7 +146,7 @@ class TeamArea extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="row justify-content-center">
+            <div className="row justify-content-around">
               {founders.map((item, i) => {
                 return (
                   <div key={i} className="col-xl-4 col-lg-4 col-md-6">
@@ -159,11 +167,61 @@ class TeamArea extends React.Component {
             <div className="row">
               <div className="col-xl-12">
                 <div className="section_title mb-40 text-center">
+                  <h3>{partnerSectionTitle}</h3>
+                </div>
+              </div>
+            </div>
+
+            <div className="row justify-content-around">
+              {partners.map((item, i) => {
+                let element = item[this.props.language];
+                return (
+                  <div key={i} className="col-xl-4 col-lg-4 col-md-6">
+                    <div className="single_team">
+                      <div className="team_thumb">
+                        <img src={element.img} alt="" />
+                      </div>
+                      <div className="team_info text-center">
+                        <h3>{element.name}</h3>
+                        <p>{element.title}</p>
+                        <p className="text-left">{element.info}</p>
+                        <br></br>
+                        <p>{element.email}</p>
+                        <div className="social_link">
+                          <ul>
+                            <li>
+                              <a href="#">
+                                <i className="fa fa-facebook" />
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <i className="fa fa-twitter" />
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <i className="fa fa-instagram" />
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="row">
+              <div className="col-xl-12">
+                <div className="section_title mb-40 text-center">
                   <h3>{attorneySectionTitle}</h3>
                 </div>
               </div>
             </div>
-            <div className="row">
+
+            <div className="row justify-content-around">
               {attorneys.map((item, i) => {
                 let element = item[this.props.language];
                 return (

@@ -31,7 +31,7 @@ class InformationArea extends React.Component {
               <div className="info_text text-center">
                 <h3>{header}</h3>
                 <p>{p1}</p>
-                <a className="boxed-btn3" href="#">
+                <a className="boxed-btn3" href="tel:+902324640054">
                   0232 464 00 54
                 </a>
               </div>
