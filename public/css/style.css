@@ -1391,7 +1391,17 @@ h3 {
 
 /* line 4, ../../Arafath/CL/CL October/216. Consulting/HTML/scss/_slider.scss */
 .slider_bg_2 {
-  background-image: url(../img/banner/izmir-wallpaper-2.jpg);
+  background-image: url(../img/banner/izmir-wallpaper-4.jpg);
+}
+
+.slider_bg_3 {
+  background-image: url(../img/banner/izmir-wallpaper-6.jpg);
+  /* filter: hue-rotate(30deg); */
+}
+
+.slider_bg_4 {
+  background-image: url(../img/banner/izmir-wallpaper-7.jpg);
+  /* filter: contrast(200%); */
 }
 
 /* line 8, ../../Arafath/CL/CL October/216. Consulting/HTML/scss/_slider.scss */

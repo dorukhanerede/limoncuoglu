@@ -138,7 +138,7 @@ class SliderArea extends React.Component {
               </div>
             </div>
           </div>
-          <div className="single_slider  d-flex align-items-center slider_bg_1 overlay2">
+          <div className="single_slider  d-flex align-items-center slider_bg_3 overlay2">
             <div className="container">
               <div className="row">
                 <div className="col-xl-12">
@@ -155,7 +155,7 @@ class SliderArea extends React.Component {
               </div>
             </div>
           </div>
-          <div className="single_slider  d-flex align-items-center slider_bg_2 overlay2">
+          <div className="single_slider  d-flex align-items-center slider_bg_4 overlay2">
             <div className="container">
               <div className="row">
                 <div className="col-xl-12">
