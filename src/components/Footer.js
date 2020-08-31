@@ -1,8 +1,35 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import Hakkımızda from "../pages/Hakkımızda";
+import { NavLink, Link } from "react-router-dom";
+import firebase from "firebase";
 
 class Footer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+
+      öncelikliEmail: "",
+      adres1: "",
+      adres2: "",
+      telNo: "",
+    };
+  }
+
+  componentWillMount() {
+    firebase
+      .firestore()
+      .collection("limoncuoglu")
+      .doc("iletişim")
+      .get()
+      .then((snap) => {
+        this.setState({
+          öncelikliEmail: snap.data().öncelikliEmail,
+          adres1: snap.data().adres1,
+          adres2: snap.data().adres2,
+          telNo: snap.data().telNo,
+        });
+      });
+  }
   render() {
     let anasayfaNav,
       kurumsalNav,
@@ -61,7 +88,7 @@ class Footer extends React.Component {
         <div className="footer_top">
           <div className="container">
             <div className="row">
-              <div className="col-xl-3 col-md-6 col-lg-3">
+              <div className="col-xl-4 col-md-6 col-lg-4">
                 <div className="footer_widget">
                   <h3 className="footer_title">{sayfalarHeader}</h3>
                   <ul>
@@ -99,66 +126,30 @@ class Footer extends React.Component {
                   </ul>
                 </div>
               </div>
-              <div className="col-xl-3 col-md-6 col-lg-2">
-                <div className="footer_widget">
-                  <h3 className="footer_title">{sonYazılarHeader}</h3>
-                  <ul>
-                    <li>
-                      <a href="#">Blog 1</a>
-                    </li>
-                    <li>
-                      <a href="#">Blog 2</a>
-                    </li>
-                    <li>
-                      <a href="#"> Blog 3</a>
-                    </li>
-                    <li>
-                      <a href="#">Blog 4</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="col-xl-3 col-md-6 col-lg-3">
+              <div className="col-xl-4 col-md-6 col-lg-4">
                 <div className="footer_widget">
                   <h3 className="footer_title">{iletişimHeader}</h3>
                   <p>
-                    <a href="#">efelimoncuoglu@gmail.com</a> <br />
-                    +90 232 464 00 54 <br />
+                    <a href="mailto:efelimoncuoglu@gmail.com">
+                      {this.state.öncelikliEmail}
+                    </a>{" "}
+                    <br />
+                    {this.state.telNo} <br />
                     <a
                       target="_blank"
                       href="https://www.google.com/maps/place/Limoncuo%C4%9Flu+Hukuk+B%C3%BCrosu/@38.4300824,27.1359505,15z/data=!4m5!3m4!1s0x0:0x21ef66952e9149c4!8m2!3d38.4300824!4d27.1359505"
                     >
-                      1378 Sokak, No: 4/1, Kat 3/308, <br /> Alsancak - Izmir,
-                      35210
+                      {this.state.adres1} <br /> {this.state.adres2}
                     </a>
                   </p>
-                  <div className="socail_links">
-                    <ul>
-                      <li>
-                        <a href="#">
-                          <i className="ti-facebook" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="ti-twitter-alt" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fa fa-instagram" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
-              <div className="col-xl-3 col-md-6 col-lg-3">
+              <div className="col-xl-4 col-md-6 col-lg-4">
                 <div className="footer_widget">
                   <div className="footer_logo">
-                    <a href="#">
+                    <NavLink exact to="/">
                       <img src="img/limoncuoglu_logo.png" alt="" height="150" />
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
               </div>

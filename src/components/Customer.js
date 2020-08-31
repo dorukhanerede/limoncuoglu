@@ -9,14 +9,25 @@ import Header from "./Header";
 import Footer from "./Footer";
 import SliderArea from "./SliderArea";
 import Anasayfa from "../pages/Anasayfa";
+import Admin from "../admin-panel/Admin";
+import Login from "../admin-panel/Login";
+import PageNotFound from "./PageNotFound";
 
 function Customer() {
-  let location = useLocation();
+  const location = useLocation();
   const [language, setLanguage] = useState("tr");
 
+  let pathname = location.pathname.toLowerCase();
   return (
     <div>
-      <Header setLanguage={setLanguage} language={language} />
+      <section
+        style={{
+          display: pathname != "/admin" && pathname != "/login" ? "" : "none",
+        }}
+      >
+        <Header setLanguage={setLanguage} language={language} />
+      </section>
+
       <section
         className="animate__animated  animate__fadeInDown"
         style={{ display: location.pathname == "/" ? "" : "none" }}
@@ -25,17 +36,37 @@ function Customer() {
       </section>
       <Switch>
         <Route exact path="/" render={() => Anasayfa(language)} />
-        <Route exact path="/Hakkımızda" render={() => Hakkımızda(language)} />
-        <Route exact path="/İletişim" render={() => İletişim(language)} />
-        <Route exact path="/Bültenler" render={() => Bültenler(language)} />
+        <Route
+          exact
+          path="/Hakkımızda"
+          render={() => <Hakkımızda language={language} />}
+        />
+        <Route
+          exact
+          path="/İletişim"
+          render={() => <İletişim language={language} />}
+        />
+        <Route
+          exact
+          path="/Bültenler"
+          render={() => <Bültenler language={language} />}
+        />
         <Route exact path="/Ekibimiz" render={() => Ekibimiz(language)} />
         <Route
           exact
           path="/Hizmetlerimiz"
           render={() => Hizmetlerimiz(language)}
         />
+        <Route exact path="/Admin" component={Admin} />
+        <Route exact path="/Login" component={Login} />
       </Switch>
-      <Footer language={language} />
+      <section
+        style={{
+          display: pathname != "/admin" && pathname != "/login" ? "" : "none",
+        }}
+      >
+        <Footer language={language} />
+      </section>
     </div>
   );
 }
