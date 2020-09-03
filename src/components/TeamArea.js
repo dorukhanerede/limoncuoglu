@@ -48,7 +48,7 @@ class TeamArea extends React.Component {
             images = { ...images, [elementName]: img };
           })
           .then(() => {
-            this.setState({ images: images });
+            this.setState({ images: images, loading: false });
           });
       });
     });
@@ -60,139 +60,63 @@ class TeamArea extends React.Component {
     return (
       <div className="team_area">
         <div className="container">
-          <div className="border_bottom">
-            {documentKeys.map((doc, i) => {
-              return (
-                <section key={doc}>
-                  <div className="row">
-                    <div className="col-xl-12">
-                      <div className="section_title mb-40 text-center">
-                        <h3>
-                          {documents[doc].sectionData[this.props.language]}
-                        </h3>
+          {this.state.loading ? (
+            <div className="loader"></div>
+          ) : (
+            <div className="border_bottom">
+              {documentKeys.map((doc, i) => {
+                return (
+                  <section key={doc}>
+                    <div className="row">
+                      <div className="col-xl-12">
+                        <div className="section_title mb-40 text-center">
+                          <h3>
+                            {documents[doc].sectionData[this.props.language]}
+                          </h3>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="row justify-content-around">
-                    {Object.keys(documents[doc]).map((data) => {
-                      const element = documents[doc][data][this.props.language];
-                      return data != "sectionData" ? (
-                        <div key={data} className="col-xl-4 col-lg-4 col-md-6">
-                          <div className="single_team">
-                            <div className="team_thumb">
-                              <img
-                                src={this.state.images[data]}
-                                alt={
-                                  "image_" +
-                                  data.split(" ").join("").toLocaleLowerCase()
-                                }
-                                style={{
-                                  objectFit: "cover",
-                                  width: "362px",
-                                  height: "400px",
-                                }}
-                              />
-                            </div>
-                            <div className="team_info text-center">
-                              <h3>{data}</h3>
-                              <p>{element.title}</p>
-                              <p className="text-left">{element.info}</p>
-                              <br></br>
-                              <p>{documents[doc][data].email}</p>
+                    <div className="row justify-content-around">
+                      {Object.keys(documents[doc]).map((data) => {
+                        const element =
+                          documents[doc][data][this.props.language];
+                        return data != "sectionData" ? (
+                          <div
+                            key={data}
+                            className="col-xl-4 col-lg-4 col-md-6"
+                          >
+                            <div className="single_team">
+                              <div className="team_thumb">
+                                <img
+                                  src={this.state.images[data]}
+                                  alt={
+                                    "image_" +
+                                    data.split(" ").join("").toLocaleLowerCase()
+                                  }
+                                  style={{
+                                    objectFit: "cover",
+                                    width: "362px",
+                                    height: "400px",
+                                  }}
+                                />
+                              </div>
+                              <div className="team_info text-center">
+                                <h3>{data}</h3>
+                                <p>{element.title}</p>
+                                <p className="text-left">{element.info}</p>
+                                <br></br>
+                                <p>{documents[doc][data].email}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ) : null;
-                    })}
-                  </div>
-                </section>
-              );
-            })}
-            {/* <div className="row">
-              <div className="col-xl-12">
-                <div className="section_title mb-40 text-center">
-                  <h3>{foundingSectionTitle}</h3>
-                </div>
-              </div>
-            </div>
-            <div className="row justify-content-around">
-              {founders.map((item, i) => {
-                return (
-                  <div key={i} className="col-xl-4 col-lg-4 col-md-6">
-                    <div className="single_team">
-                      <div className="team_thumb">
-                        <img src="img/team/3.png" alt="" />
-                      </div>
-                      <div className="team_info text-center">
-                        <h3>{item[this.props.language].name}</h3>
-                        <p>{item[this.props.language].title}</p>
-                      </div>
+                        ) : null;
+                      })}
                     </div>
-                  </div>
+                  </section>
                 );
               })}
             </div>
-
-            <div className="row">
-              <div className="col-xl-12">
-                <div className="section_title mb-40 text-center">
-                  <h3>{partnerSectionTitle}</h3>
-                </div>
-              </div>
-            </div>
-
-            <div className="row justify-content-around">
-              {partners.map((item, i) => {
-                let element = item[this.props.language];
-                return (
-                  <div key={i} className="col-xl-4 col-lg-4 col-md-6">
-                    <div className="single_team">
-                      <div className="team_thumb">
-                        <img src={element.img} alt="" />
-                      </div>
-                      <div className="team_info text-center">
-                        <h3>{element.name}</h3>
-                        <p>{element.title}</p>
-                        <p className="text-left">{element.info}</p>
-                        <br></br>
-                        <p>{element.email}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="row">
-              <div className="col-xl-12">
-                <div className="section_title mb-40 text-center">
-                  <h3>{attorneySectionTitle}</h3>
-                </div>
-              </div>
-            </div>
-
-            <div className="row justify-content-around">
-              {attorneys.map((item, i) => {
-                let element = item[this.props.language];
-                return (
-                  <div key={i} className="col-xl-4 col-lg-4 col-md-6">
-                    <div className="single_team">
-                      <div className="team_thumb">
-                        <img src={element.img} alt="" />
-                      </div>
-                      <div className="team_info text-center">
-                        <h3>{element.name}</h3>
-                        <p>{element.title}</p>
-                        <p className="text-left">{element.info}</p>
-                        <br></br>
-                        <p>{element.email}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div> */}
-          </div>
+          )}
         </div>
       </div>
     );

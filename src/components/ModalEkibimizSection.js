@@ -10,9 +10,6 @@ function ModalEkibimizSection() {
 
   return (
     <section>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
       <Modal
         show={show}
         onHide={handleClose}

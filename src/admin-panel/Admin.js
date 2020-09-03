@@ -15,7 +15,7 @@ import İletişimAdmin from "./İletişimAdmin";
 function Admin() {
   const [toggleMenu, setToggleMenu] = useState(false);
   const history = useHistory();
-  const [main, setMain] = useState("Anasayfa");
+  const [main, setMain] = useState("Ekibimiz");
   // const [mainPart, setMainPart] = useState(0);
 
   // const getSom = async () => {
@@ -50,8 +50,8 @@ function Admin() {
       mainPart = <HakkımızdaAdmin></HakkımızdaAdmin>;
       break;
     case "Ekibimiz":
-      // mainPart = <EkibimizAdmin></EkibimizAdmin>;
-      mainPart = "Coming Soon";
+      mainPart = <EkibimizAdmin></EkibimizAdmin>;
+      // mainPart = "Coming Soon";
       break;
     case "Bültenler":
       mainPart = <BültenlerAdmin></BültenlerAdmin>;
