@@ -18,6 +18,8 @@ class EkibimizAdmin extends React.Component {
       modalPart: "",
       documents: {},
       images: {},
+      personPhoto: "",
+      addedSection: "",
     };
   }
 
@@ -31,8 +33,7 @@ class EkibimizAdmin extends React.Component {
       .firestore()
       .collection("ekibimiz")
       .orderBy("sectionData.order", "asc")
-      .get()
-      .then((collection) => {
+      .onSnapshot((collection) => {
         let collections = {};
         collection.docs.forEach((doc) => {
           const data = doc.data();
@@ -69,7 +70,7 @@ class EkibimizAdmin extends React.Component {
 
   handleClose = (isSave, data) => {
     if (isSave) {
-      if (this.state.modalPart =="section") {
+      if (this.state.modalPart == "section") {
         let docs = this.state.documents;
         firebase
           .firestore()
@@ -81,34 +82,81 @@ class EkibimizAdmin extends React.Component {
               [docRef.id]: { sectionData: data },
             };
             let docsKeys = Object.keys(docs);
-            if(data.order != docsKeys.length)
-              {
-                docsKeys.forEach(element => {
-                  if(docs[element]["sectionData"]["order"] >= data.order && element != docRef.id)
-                  {
-                    firebase.firestore().collection("ekibimiz").doc(element).update({"sectionData.order":docs[element]["sectionData"]["order"] + 1});
-                    docs[element]["sectionData"]["order"] = docs[element]["sectionData"]["order"] + 1;
-                  }
-                });
-              }
-              console.log(docs)
-            this.setState({ documents: docs });
-          })
-          
+            if (data.order != docsKeys.length) {
+              docsKeys.forEach((element) => {
+                if (
+                  docs[element]["sectionData"]["order"] >= data.order &&
+                  element != docRef.id
+                ) {
+                  firebase
+                    .firestore()
+                    .collection("ekibimiz")
+                    .doc(element)
+                    .update({
+                      "sectionData.order":
+                        docs[element]["sectionData"]["order"] + 1,
+                    });
+                  // docs[element]["sectionData"]["order"] =
+                  //   docs[element]["sectionData"]["order"] + 1;
+                }
+              });
+            }
+            // this.setState({ documents: docs });
+          });
       }
       if (this.state.modalPart == "person") {
-        console.log("person");
+        firebase
+          .firestore()
+          .collection("ekibimiz")
+          .doc(this.state.addedSection)
+          .set(
+            {
+              [data.personName]: data.data,
+            },
+            { merge: true }
+          );
+        const ref = firebase.storage().ref();
+        ref
+          .child("ekibimiz/" + this.state.personPhoto.name)
+          .put(this.state.personPhoto);
       }
     }
     this.setState({ show: false });
   };
 
-  handleAddPerson = async (section) => {
+  handleAddPerson = async (docId) => {
+    this.setState({ addedSection: docId });
     await this.handleShow("person");
   };
 
   handleAddSection = async () => {
     await this.handleShow("section");
+  };
+
+  confirmDelete = () => {
+    let isValid = false;
+    if (window.confirm("Silmek istediğine emin misin?")) isValid = true;
+    return isValid;
+  };
+
+  handleDeleteSection = async (docId) => {
+    const counter = this.state.documents[docId]["sectionData"]["order"];
+    let docKeys = Object.keys(this.state.documents);
+    const docs = this.state.documents;
+    await firebase.firestore().collection("ekibimiz").doc(docId).delete();
+
+    docKeys.forEach((element) => {
+      if (docs[element]["sectionData"]["order"] > counter) {
+        console.log(element);
+        firebase
+          .firestore()
+          .collection("ekibimiz")
+          .doc(element)
+          .update({
+            "sectionData.order": docs[element]["sectionData"]["order"] - 1,
+          });
+      }
+    });
   };
 
   render() {
@@ -118,6 +166,15 @@ class EkibimizAdmin extends React.Component {
       enBaşlık,
       frBaşlık,
       order = documentKeys.length + 1;
+    let personName,
+      personTrTitle,
+      personEnTitle,
+      personFrTitle,
+      personTrInfo,
+      personEnInfo,
+      personFrInfo,
+      personEmail,
+      personPhoto;
     return (
       <div className="team_area">
         <div className="container">
@@ -132,6 +189,24 @@ class EkibimizAdmin extends React.Component {
                       <div className="col-xl-12">
                         <div className="section_title mb-40 text-center card-header">
                           <h3>{documents[doc].sectionData["tr"]}</h3>
+                          <div
+                            className="position-absolute"
+                            style={{ right: "5%", top: "20%" }}
+                          >
+                            <a
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                if (this.confirmDelete())
+                                  this.handleDeleteSection(doc);
+                              }}
+                            >
+                              <FontAwesomeIcon
+                                icon={faTrashAlt}
+                                className="mx-1"
+                                size="2x"
+                              />
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -153,7 +228,6 @@ class EkibimizAdmin extends React.Component {
                                   }
                                   style={{
                                     objectFit: "cover",
-                                    // width: "186px",
                                     maxHeight: "173.469px",
                                     objectPosition: "50% 50%",
                                   }}
@@ -203,7 +277,9 @@ class EkibimizAdmin extends React.Component {
           onHide={this.handleClose}
           backdrop="static"
           keyboard={false}
-          size="lg"
+          dialogClassName={
+            this.state.modalPart == "section" ? "modal-50w" : "modal-80w"
+          }
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
@@ -212,7 +288,7 @@ class EkibimizAdmin extends React.Component {
               {this.state.modalPart == "section" ? (
                 <div>Bölüm Ekle</div>
               ) : (
-                <div>person</div>
+                <div>Kişi ekle</div>
               )}
             </Modal.Title>
           </Modal.Header>
@@ -221,12 +297,13 @@ class EkibimizAdmin extends React.Component {
               <form>
                 <div className="form-group">
                   <label htmlFor="sectionName">Bölüm Başlığı</label>
-                  <div className="row" id="sectionName">
+                  <div className="form-row" id="sectionName">
                     <div className="col">
                       <input
                         type="text"
                         className="form-control"
                         placeholder="Türkçe isim"
+                        defaultValue={trBaşlık}
                         onChange={(e) => (trBaşlık = e.target.value)}
                       />
                     </div>
@@ -235,6 +312,7 @@ class EkibimizAdmin extends React.Component {
                         type="text"
                         className="form-control"
                         placeholder="İngilizce isim"
+                        defaultValue={enBaşlık}
                         onChange={(e) => (enBaşlık = e.target.value)}
                       />
                     </div>
@@ -243,6 +321,7 @@ class EkibimizAdmin extends React.Component {
                         type="text"
                         className="form-control"
                         placeholder="Fransızca isim"
+                        defaultValue={frBaşlık}
                         onChange={(e) => (frBaşlık = e.target.value)}
                       />
                     </div>
@@ -255,7 +334,7 @@ class EkibimizAdmin extends React.Component {
                       className="custom-select "
                       id="orderSection"
                       onChange={(e) => (order = e.target.value)}
-                      defaultValue={documentKeys.length + 1}
+                      defaultValue={order}
                     >
                       {documentKeys.map((doc, i) => {
                         return (
@@ -272,11 +351,125 @@ class EkibimizAdmin extends React.Component {
                 </div>
               </form>
             ) : (
-              <div>person</div>
+              <form>
+                <div className="form-group justify-content-center">
+                  <label htmlFor="personPhoto">Fotoğraf</label>
+                  <img
+                    src={
+                      !this.state.personPhoto
+                        ? "img/team/blank.png"
+                        : URL.createObjectURL(this.state.personPhoto)
+                    }
+                    width="362px"
+                    height="400px"
+                    style={{
+                      maxWidth: "362px",
+                      maxHeight: "400px",
+                      objectFit: "cover",
+                    }}
+                  ></img>
+                  <input
+                    id="personPhoto"
+                    type="file"
+                    accept="image/*"
+                    className="col-md-5"
+                    onChange={(e) => {
+                      personPhoto = e.target.files[0];
+                      this.setState({ personPhoto: personPhoto });
+                    }}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="personName">İsim</label>
+                  <input
+                    id="personName"
+                    type="text"
+                    className="form-control col-md-5"
+                    placeholder="İsim"
+                    defaultValue={personName}
+                    onChange={(e) => (personName = e.target.value)}
+                  />
+                </div>
+                <div className="form-group ">
+                  <label htmlFor="personTitle">Ünvan</label>
+                  <div id="personTitle" className="form-row">
+                    <div className="col">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Türkçe Ünvan"
+                        defaultValue={personTrTitle}
+                        onChange={(e) => (personTrTitle = e.target.value)}
+                      />
+                    </div>
+                    <div className="col">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="İngilizce Ünvan"
+                        defaultValue={personEnTitle}
+                        onChange={(e) => (personEnTitle = e.target.value)}
+                      />
+                    </div>
+                    <div className="col">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Fransızca Ünvan"
+                        defaultValue={personFrTitle}
+                        onChange={(e) => (personFrTitle = e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group ">
+                  <label htmlFor="personInfo">Açıklama</label>
+                  <div id="personInfo" className="form-row">
+                    <div className="col">
+                      <textarea
+                        className="form-control"
+                        placeholder="Türkçe Açıklama"
+                        rows="4"
+                        defaultValue={personTrInfo}
+                        onChange={(e) => (personTrInfo = e.target.value)}
+                      />
+                    </div>
+                    <div className="col">
+                      <textarea
+                        className="form-control"
+                        placeholder="İngilizce Açıklama"
+                        rows="4"
+                        defaultValue={personEnInfo}
+                        onChange={(e) => (personEnInfo = e.target.value)}
+                      />
+                    </div>
+                    <div className="col">
+                      <textarea
+                        className="form-control"
+                        placeholder="Fransızca Açıklama"
+                        rows="4"
+                        defaultValue={personFrInfo}
+                        onChange={(e) => (personFrInfo = e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="personEmail">Email</label>
+                  <input
+                    id="personEmail"
+                    type="text"
+                    className="form-control col-md-6"
+                    placeholder="Email"
+                    defaultValue={personEmail}
+                    onChange={(e) => (personEmail = e.target.value)}
+                  />
+                </div>
+              </form>
             )}
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={()=>this.handleClose(false)}>
+            <Button variant="secondary" onClick={() => this.handleClose(false)}>
               Kapat
             </Button>
             <Button
@@ -300,6 +493,40 @@ class EkibimizAdmin extends React.Component {
                     en: enBaşlık,
                     fr: frBaşlık,
                     order: parseInt(order),
+                  };
+                }
+                if (this.state.modalPart == "person") {
+                  if (
+                    String(personName).trim() == "" ||
+                    String(personTrTitle).trim() == "" ||
+                    String(personTrInfo).trim() == "" ||
+                    String(personEnTitle).trim() == "" ||
+                    String(personEnInfo).trim() == "" ||
+                    String(personFrTitle).trim() == "" ||
+                    String(personFrInfo).trim() == "" ||
+                    String(personEmail).trim() == "" ||
+                    !personName ||
+                    !personTrTitle ||
+                    !personTrInfo ||
+                    !personEnTitle ||
+                    !personEnInfo ||
+                    !personFrTitle ||
+                    !personFrInfo ||
+                    !personEmail ||
+                    !this.state.personPhoto
+                  ) {
+                    alert("Bazı alanlar boş!");
+                    return;
+                  }
+                  objct = {
+                    personName: personName,
+                    data: {
+                      email: personEmail,
+                      tr: { info: personTrInfo, title: personTrTitle },
+                      en: { info: personEnInfo, title: personEnTitle },
+                      fr: { info: personFrInfo, title: personFrTitle },
+                    },
+                    personPhoto: personPhoto,
                   };
                 }
 

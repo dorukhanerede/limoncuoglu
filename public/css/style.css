@@ -4170,6 +4170,14 @@ h3 {
   
 } */
 
+.modal-80w {
+  max-width: 80% !important;
+}
+
+.modal-50w {
+  max-width: 50% !important;
+}
+
 /* line 1, ../../Arafath/CL/CL October/216. Consulting/HTML/scss/_experts.scss */
 .expert_doctors_area {
   padding-top: 120px;
