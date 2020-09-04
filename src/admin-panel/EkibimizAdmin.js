@@ -69,7 +69,7 @@ class EkibimizAdmin extends React.Component {
 
   handleClose = (isSave, data) => {
     if (isSave) {
-      if (this.state.modalPart) {
+      if (this.state.modalPart =="section") {
         let docs = this.state.documents;
         firebase
           .firestore()
@@ -80,8 +80,21 @@ class EkibimizAdmin extends React.Component {
               ...docs,
               [docRef.id]: { sectionData: data },
             };
+            let docsKeys = Object.keys(docs);
+            if(data.order != docsKeys.length)
+              {
+                docsKeys.forEach(element => {
+                  if(docs[element]["sectionData"]["order"] >= data.order && element != docRef.id)
+                  {
+                    firebase.firestore().collection("ekibimiz").doc(element).update({"sectionData.order":docs[element]["sectionData"]["order"] + 1});
+                    docs[element]["sectionData"]["order"] = docs[element]["sectionData"]["order"] + 1;
+                  }
+                });
+              }
+              console.log(docs)
             this.setState({ documents: docs });
-          });
+          })
+          
       }
       if (this.state.modalPart == "person") {
         console.log("person");
@@ -263,7 +276,7 @@ class EkibimizAdmin extends React.Component {
             )}
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
+            <Button variant="secondary" onClick={()=>this.handleClose(false)}>
               Kapat
             </Button>
             <Button
@@ -282,12 +295,11 @@ class EkibimizAdmin extends React.Component {
                     alert("İsim alanları boş!");
                     return;
                   }
-
                   objct = {
                     tr: trBaşlık,
                     en: enBaşlık,
                     fr: frBaşlık,
-                    order: order,
+                    order: parseInt(order),
                   };
                 }
 
