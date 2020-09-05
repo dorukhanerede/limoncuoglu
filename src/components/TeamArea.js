@@ -41,16 +41,18 @@ class TeamArea extends React.Component {
         element
           .getDownloadURL()
           .then((img) => {
-            const elementName = element.name.slice(
-              0,
-              element.name.lastIndexOf(".")
-            );
+            const elementName = element.name;
+            // .slice(
+            //   0,
+            //   element.name.lastIndexOf(".")
+            // );
             images = { ...images, [elementName]: img };
           })
           .then(() => {
             this.setState({ images: images, loading: false });
           });
       });
+      if (result.items.length == 0) this.setState({ loading: false });
     });
   }
 
@@ -88,7 +90,15 @@ class TeamArea extends React.Component {
                             <div className="single_team">
                               <div className="team_thumb">
                                 <img
-                                  src={this.state.images[data]}
+                                  src={
+                                    this.state.images[
+                                      documents[doc][data].imageName
+                                    ]
+                                      ? this.state.images[
+                                          documents[doc][data].imageName
+                                        ]
+                                      : "img/team/blank.png"
+                                  }
                                   alt={
                                     "image_" +
                                     data.split(" ").join("").toLocaleLowerCase()
