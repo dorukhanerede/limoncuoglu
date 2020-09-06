@@ -6,6 +6,8 @@ import {
   faTrashAlt,
   faEdit,
   faPlusSquare,
+  faCross,
+  faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import firebase from "firebase";
 
@@ -434,6 +436,22 @@ class EkibimizAdmin extends React.Component {
     });
   };
 
+  handleDeletePerson = async (docId, personId) => {
+    const imageName = this.state.documents[docId][personId].imageName;
+
+    firebase
+      .firestore()
+      .collection("ekibimiz")
+      .doc(docId)
+      .update({
+        [personId]: firebase.firestore.FieldValue.delete(),
+      })
+      .then(() => {
+        const ref = firebase.storage().ref();
+        ref.child("ekibimiz/" + imageName).delete();
+      });
+  };
+
   render() {
     let documentKeys = Object.keys(this.state.documents);
     let documents = this.state.documents;
@@ -491,11 +509,13 @@ class EkibimizAdmin extends React.Component {
                           <div
                             key={data}
                             className="col-xl-2 col-lg-2 col-md-6"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => this.handleEditPerson(doc, data)}
                           >
                             <div className="single_team">
-                              <div className="team_thumb">
+                              <div
+                                className="team_thumb"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => this.handleEditPerson(doc, data)}
+                              >
                                 <img
                                   src={
                                     this.state.images[
@@ -517,22 +537,43 @@ class EkibimizAdmin extends React.Component {
                                   }}
                                 />
                               </div>
+                              <a
+                                className="position-absolute"
+                                style={{
+                                  right: "-1%",
+                                  top: "-10%",
+                                  overflow: "hidden",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                  if (this.confirmDelete())
+                                    this.handleDeletePerson(doc, data);
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faTimesCircle}
+                                  size="2x"
+                                  color="red"
+                                ></FontAwesomeIcon>
+                              </a>
                             </div>
                           </div>
                         ) : null;
                       })}
                       <div className="col-xl-2 col-lg-2 col-md-6">
-                        <div className="single_team">
+                        <div className="single_team text-center">
                           <div className="team_thumb">
                             <a
+                              className="text-center"
                               style={{ cursor: "pointer" }}
                               onClick={() => this.handleAddPerson(doc)}
                             >
                               <FontAwesomeIcon
                                 icon={faPlusSquare}
-                                size="10x"
-                                transform="shrink-6"
-                              />
+                                size="5x"
+                                // transform="shrink-6"
+                              ></FontAwesomeIcon>
+                              <h4>Kişi ekle</h4>
                             </a>
                           </div>
                         </div>
