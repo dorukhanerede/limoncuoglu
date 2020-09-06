@@ -165,23 +165,21 @@ class EkibimizAdmin extends React.Component {
               },
             };
             let docsKeys = Object.keys(docs);
-            if (data.order != docsKeys.length) {
-              docsKeys.forEach((element) => {
-                if (
-                  docs[element]["sectionData"]["order"] >= data.order &&
-                  element != docRef.id
-                ) {
-                  firebase
-                    .firestore()
-                    .collection("ekibimiz")
-                    .doc(element)
-                    .update({
-                      "sectionData.order":
-                        docs[element]["sectionData"]["order"] + 1,
-                    });
-                }
-              });
-            }
+            docsKeys.forEach((element) => {
+              if (
+                docs[element]["sectionData"]["order"] >= data.data.order &&
+                element != docRef.id
+              ) {
+                firebase
+                  .firestore()
+                  .collection("ekibimiz")
+                  .doc(element)
+                  .update({
+                    "sectionData.order":
+                      docs[element]["sectionData"]["order"] + 1,
+                  });
+              }
+            });
           });
       }
       if (this.state.modalPart == "person") {
