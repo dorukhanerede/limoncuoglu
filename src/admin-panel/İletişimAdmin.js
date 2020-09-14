@@ -13,6 +13,8 @@ class İletişimAdmin extends React.Component {
       adres2: "",
       telNo: "",
       çalışmaSaatleri: "",
+      çalışmaSaatleriEn: "",
+      çalışmaSaatleriFr:"",
     };
   }
   componentWillMount() {
@@ -29,6 +31,8 @@ class İletişimAdmin extends React.Component {
           adres2: snap.data().adres2,
           telNo: snap.data().telNo,
           çalışmaSaatleri: snap.data().çalışmaSaatleri,
+          çalışmaSaatleriEn: snap.data().çalışmaSaatleriEn,
+          çalışmaSaatleriFr: snap.data().çalışmaSaatleriFr
         });
       })
       .then(() => this.setState({ loading: false }));
@@ -40,7 +44,9 @@ class İletişimAdmin extends React.Component {
     adres1,
     adres2,
     telNo,
-    çalışmaSaatleri
+    çalışmaSaatleri,
+    çalışmaSaatleriEn,
+    çalışmaSaatleriFr
   ) => {
     firebase
       .firestore()
@@ -53,6 +59,8 @@ class İletişimAdmin extends React.Component {
         adres2: adres2,
         telNo: telNo,
         çalışmaSaatleri: çalışmaSaatleri,
+        çalışmaSaatleriEn: çalışmaSaatleriEn,
+        çalışmaSaatleriFr: çalışmaSaatleriFr,
       })
       .then(() => alert("Kaydedildi"));
   };
@@ -64,6 +72,8 @@ class İletişimAdmin extends React.Component {
     let adres2 = this.state.adres2;
     let telNo = this.state.telNo;
     let çalışmaSaatleri = this.state.çalışmaSaatleri;
+    let çalışmaSaatleriEn = this.state.çalışmaSaatleriEn;
+    let çalışmaSaatleriFr = this.state.çalışmaSaatleriFr;
     return (
       <section>
         {this.state.loading ? (
@@ -127,16 +137,41 @@ class İletişimAdmin extends React.Component {
                 onChange={(e) => (telNo = e.target.value)}
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="inputÇalışma">Çalışma Saatleri</label>
+            <label htmlFor="çalışmaInputs">Çalışma Saatleri</label>
+            <div className="form-group form-row" id="çalışmaInputs">
+            <div className="col">
+              <label htmlFor="inputÇalışma">Türkçe</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control col"
                 id="inputÇalışma"
                 placeholder="Pazartesi - Cuma 9:00 ile 18:00 arası"
                 defaultValue={çalışmaSaatleri}
                 onChange={(e) => (çalışmaSaatleri = e.target.value)}
               />
+              </div>
+              <div className="col">
+              <label htmlFor="inputÇalışmaEn">İngilizce</label>
+              <input
+                type="text"
+                className="form-control col"
+                id="inputÇalışmaEn"
+                placeholder="Pazartesi - Cuma 9:00 ile 18:00 arası"
+                defaultValue={çalışmaSaatleriEn}
+                onChange={(e) => (çalışmaSaatleriEn = e.target.value)}
+              />
+              </div>
+              <div className="col">
+              <label htmlFor="inputÇalışmaFr">Fransızca</label>
+              <input
+                type="text"
+                className="form-control col"
+                id="inputÇalışmaFr"
+                placeholder="Pazartesi - Cuma 9:00 ile 18:00 arası"
+                defaultValue={çalışmaSaatleriFr}
+                onChange={(e) => (çalışmaSaatleriFr = e.target.value)}
+              />
+              </div>
             </div>
             <div className="m-4 text-right">
               <button
@@ -149,7 +184,9 @@ class İletişimAdmin extends React.Component {
                     adres1,
                     adres2,
                     telNo,
-                    çalışmaSaatleri
+                    çalışmaSaatleri,
+                    çalışmaSaatleriEn,
+                    çalışmaSaatleriFr
                   )
                 }
               >

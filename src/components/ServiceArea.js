@@ -7,38 +7,44 @@ class ServiceArea extends React.Component {
     this.state = {
       loading: true,
 
-      tr: "",
-      en: "",
-      fr: "",
+      services: {},
+      icons: {}
     };
   }
 
-  async componentWillMount() {
-    const ref = await firebase.firestore().collection("hizmetlerimiz").get();
+  componentWillMount() {
 
-    ref.docs.forEach((doc) => {
-      const docId = doc.id;
-      const data = doc.data();
-      let tempData = [];
-      const size = Object.keys(data).length;
-
-      Object.keys(data).forEach((el) => {
-        const id = el;
-        const elementData = data[id];
-        tempData.push({
-          [id]: elementData,
-        });
+    firebase
+      .firestore()
+      .collection("hizmetlerimiz").orderBy("serviceData.order", "asc").get().then(col => {
+        let services = {};
+        col.docs.forEach(doc => {
+          services = { ...services, [doc.id]: doc.data() }
+        })
+        this.setState({ services: services });
       });
-      // for (let index = 1; index <= size; index++) {
-      //   tempData.push({
 
-      // header: data["header" + index],
-      // info: data["info" + index],
-      // });
-      // }
-      this.setState({
-        [docId]: tempData,
+      this.getStorage();
+  }
+
+
+  getStorage() {
+    const ref = firebase.storage().ref("hizmetlerimiz");
+    let icons = {};
+    ref.listAll().then((result) => {
+      result.items.forEach((element) => {
+        element
+          .getDownloadURL()
+          .then((img) => {
+            const elementName = element.name;
+            icons = { ...icons, [elementName]: img };
+          })
+          .then(() => {
+            this.setState({ icons: icons, loading: false });
+          })
+          .catch((err) => console.log(err));
       });
+      if (result.items.length == 0) this.setState({ loading: false });
     });
   }
 
@@ -53,13 +59,11 @@ class ServiceArea extends React.Component {
         header = "Services";
         break;
       case "fr":
-        header = "fransızca";
+        header = "Nos Services";
         break;
       default:
         header = "Hizmetlerimiz";
     }
-
-    let givenData = this.state[this.props.language];
 
     return (
       <div className="service_area">
@@ -72,23 +76,21 @@ class ServiceArea extends React.Component {
             </div>
           </div>
 
-          <div className="row justify-content-center">
-            {Object.keys(givenData).map((e) => {
-              const id = Object.keys(givenData[e]);
-              const info = givenData[e][id];
+          {this.state.loading ? <div className="loader"></div> : <div className="row justify-content-center">
+            {Object.keys(this.state.services).map((doc, e) => {
               return (
-                <div key={e} className="col-xl-3 col-md-6 col-lg-3">
+                <div key={"service_" + e} className="col-xl-3 col-md-6 col-lg-3">
                   <div className="single_service text-center">
                     <div className={"service_icon service_icon_" + (e % 4)}>
-                      <img src="img/svg_icon/1.svg" alt="" />
+                      <img src={this.state.icons[this.state.services[doc].serviceData.icon]} alt={"service_image_" + e}height="39.626px" style={{ filter: "brightness(0) invert(1)" }} />
                     </div>
-                    <h3>{id.toString()} </h3>
-                    <p>{info}</p>
+                    <h3>{this.state.services[doc][this.props.language].header}</h3>
+                    <p>{this.state.services[doc][this.props.language].info}</p>
                   </div>
                 </div>
               );
             })}
-          </div>
+          </div>}
         </div>
       </div>
     );

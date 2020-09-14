@@ -58,10 +58,10 @@ class Footer extends React.Component {
       case "en":
         anasayfaNav = "Home";
         kurumsalNav = "Corporate";
-        hakkımızdaNav = "About";
-        ekibimizNav = "Team";
+        hakkımızdaNav = "About Us";
+        ekibimizNav = "Our Team";
         hizmetlerimizNav = "Services";
-        bültenlerNav = "News";
+        bültenlerNav = "Bulletins";
         iletişimNav = "Contact";
 
         sayfalarHeader = "Pages";
@@ -71,14 +71,14 @@ class Footer extends React.Component {
       case "fr":
         anasayfaNav = "Page d'accueil";
         kurumsalNav = "Enterprise";
-        hakkımızdaNav = "à propos de nous";
-        ekibimizNav = "notre équipe";
-        hizmetlerimizNav = "Nos services";
-        bültenlerNav = "newsletters";
+        hakkımızdaNav = "à Propos de Nous";
+        ekibimizNav = "Notre équipe";
+        hizmetlerimizNav = "Nos Services";
+        bültenlerNav = "Les Bulletins";
         iletişimNav = "Contact";
 
-        sayfalarHeader = "Sayfalar";
-        sonYazılarHeader = "En Son Yazılarımız";
+        sayfalarHeader = "Pages";
+        sonYazılarHeader = "Nos derniers articles";
         iletişimHeader = "Contact";
         break;
     }

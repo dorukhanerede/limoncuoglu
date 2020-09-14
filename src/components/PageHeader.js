@@ -6,27 +6,27 @@ function PageHeader(headerName, language) {
     case "bültenler":
       if (language == "tr") headerText = headerName;
       else if (language == "en") headerText = "News";
-      else headerText = "fransızca";
+      else headerText = "Les Bulletins";
       break;
     case "ekibimiz":
       if (language == "tr") headerText = headerName;
-      else if (language == "en") headerText = "Team";
-      else headerText = "fransızca";
+      else if (language == "en") headerText = "Our Team";
+      else headerText = "Notre équipe";
       break;
     case "hakkımızda":
       if (language == "tr") headerText = headerName;
       else if (language == "en") headerText = "About";
-      else headerText = "fransızca";
+      else headerText = "à Propos de Nous";
       break;
     case "hizmetlerimiz":
       if (language == "tr") headerText = headerName;
       else if (language == "en") headerText = "Services";
-      else headerText = "fransızca";
+      else headerText = "Nos Services";
       break;
     case "iletişim":
       if (language == "tr") headerText = headerName;
       else if (language == "en") headerText = "Contact";
-      else headerText = "fransızca";
+      else headerText = "Contact";
       break;
     default:
       headerText = window.location.pathname;

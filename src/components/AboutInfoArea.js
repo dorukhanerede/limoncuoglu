@@ -58,7 +58,7 @@ class AboutInfoArea extends React.Component {
         break;
 
       case "fr":
-        devamıGörButon = "Le Baguet";
+        devamıGörButon = "Voir Plus";
         break;
     }
 

@@ -15,7 +15,7 @@ import İletişimAdmin from "./İletişimAdmin";
 function Admin() {
   const [toggleMenu, setToggleMenu] = useState(false);
   const history = useHistory();
-  const [main, setMain] = useState("Ekibimiz");
+  const [main, setMain] = useState("Hizmetlerimiz");
   // const [mainPart, setMainPart] = useState(0);
 
   // const getSom = async () => {

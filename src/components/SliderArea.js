@@ -47,20 +47,20 @@ class SliderArea extends React.Component {
         break;
 
       case "fr":
-        header1 = "fransızca";
-        subheader1 = "fransızca";
-        buton1 = "İletişim";
+        header1 = "LİMONCUOĞLU";
+        subheader1 = "Cabinet d'avocats";
+        buton1 = "Contact";
 
-        header2 = "Hizmetlerimiz";
-        subheader2 = "ve Çalışma Alanlarımız";
-        buton2 = "Daha Fazla";
+        header2 = "Nos Services";
+        // subheader2 = "ve Çalışma Alanlarımız";
+        buton2 = "Apprendre Encore plus";
 
-        header3 = "Ekibimiz";
-        buton3 = "Daha Fazla";
+        header3 = "Notre équipe";
+        buton3 = "Apprendre Encore plus";
 
-        header4 = "Bültenlerimiz";
-        subheader4 = "ve Yazılarımız";
-        buton4 = "Daha Fazla";
+        header4 = "Les bulletins";
+        subheader4 = "Et nos articles";
+        buton4 = "Apprendre Encore plus";
         break;
     }
 

@@ -38,7 +38,7 @@ class İletişim extends React.Component {
           adres1: snap.data().adres1,
           adres2: snap.data().adres2,
           telNo: snap.data().telNo,
-          çalışmaSaatleri: snap.data().çalışmaSaatleri,
+          çalışmaSaatleri: {tr: snap.data().çalışmaSaatleri,en: snap.data().çalışmaSaatleriEn, fr: snap.data().çalışmaSaatleriFr},
         });
       })
       .then(() => this.setState({ loading: false }));
@@ -114,7 +114,7 @@ class İletişim extends React.Component {
                       <a href={"tel:+9" + this.state.telNo}>
                         <h3>{this.state.telNo}</h3>
                       </a>
-                      <p>{this.state.çalışmaSaatleri}</p>
+                      <p>{this.state.çalışmaSaatleri[this.props.language]}</p>
                     </div>
                   </div>
                 </div>

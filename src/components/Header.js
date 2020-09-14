@@ -52,10 +52,10 @@ class Header extends React.Component {
       case "en":
         anasayfaNav = "Home";
         kurumsalNav = "Corporate";
-        hakkımızdaNav = "About";
-        ekibimizNav = "Team";
+        hakkımızdaNav = "About Us";
+        ekibimizNav = "Our Team";
         hizmetlerimizNav = "services";
-        bültenlerNav = "News";
+        bültenlerNav = "Bulletins";
         iletişimNav = "contact";
         break;
       case "fr":
@@ -64,7 +64,7 @@ class Header extends React.Component {
         hakkımızdaNav = "à propos de nous";
         ekibimizNav = "notre équipe";
         hizmetlerimizNav = "Nos services";
-        bültenlerNav = "newsletters";
+        bültenlerNav = "Les Bulletins";
         iletişimNav = "Contact";
         break;
       default:
