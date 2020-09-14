@@ -13,12 +13,12 @@ class InformationArea extends React.Component {
 
       case "en":
         header = "For Any Information";
-        p1 = "Call us!";
+        p1 = "Call us";
         break;
 
       case "fr":
-        header = "fransızca";
-        p1 = "fransızca";
+        header = "Pour vos questions";
+        p1 = "Contactez-vous";
 
         break;
     }

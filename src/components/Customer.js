@@ -16,13 +16,27 @@ import PageNotFound from "./PageNotFound";
 function Customer() {
   const location = useLocation();
   const [language, setLanguage] = useState("tr");
+  const pages = [
+    "/hizmetlerimiz",
+    "/ekibimiz",
+    "/",
+    "/hakkımızda",
+    "/i̇letişim",
+    "/bültenler",
+  ];
 
   let pathname = location.pathname.toLowerCase();
+
   return (
     <div>
       <section
         style={{
-          display: pathname != "/admin" && pathname != "/login" ? "" : "none",
+          display:
+            pathname != "/admin" &&
+            pathname != "/login" &&
+            pages.includes(pathname)
+              ? ""
+              : "none",
         }}
       >
         <Header setLanguage={setLanguage} language={language} />
@@ -59,10 +73,16 @@ function Customer() {
         />
         <Route exact path="/Admin" component={Admin} />
         <Route exact path="/Login" component={Login} />
+        <Route path="/*" render={() => PageNotFound()} />
       </Switch>
       <section
         style={{
-          display: pathname != "/admin" && pathname != "/login" ? "" : "none",
+          display:
+            pathname != "/admin" &&
+            pathname != "/login" &&
+            pages.includes(pathname)
+              ? ""
+              : "none",
         }}
       >
         <Footer language={language} />

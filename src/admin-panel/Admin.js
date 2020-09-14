@@ -10,12 +10,11 @@ import AnasayfaAdmin from "./AnasayfaAdmin";
 import BültenlerAdmin from "./BültenlerAdmin";
 import HizmetlerimizAdmin from "./HizmetlerimizAdmin";
 import İletişimAdmin from "./İletişimAdmin";
-// import { firebase, auth, firestore } from "../firebase/firebase";
 
 function Admin() {
   const [toggleMenu, setToggleMenu] = useState(false);
   const history = useHistory();
-  const [main, setMain] = useState("Hizmetlerimiz");
+  const [main, setMain] = useState("Anasayfa");
   // const [mainPart, setMainPart] = useState(0);
 
   // const getSom = async () => {
@@ -51,7 +50,6 @@ function Admin() {
       break;
     case "Ekibimiz":
       mainPart = <EkibimizAdmin></EkibimizAdmin>;
-      // mainPart = "Coming Soon";
       break;
     case "Bültenler":
       mainPart = <BültenlerAdmin></BültenlerAdmin>;

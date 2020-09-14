@@ -14,23 +14,26 @@ class Bültenler extends React.Component {
       bültenler: [],
     };
   }
-  async componentWillMount() {
-    await firebase
+  componentDidMount() {
+    firebase
       .storage()
       .ref("bültenler")
       .listAll()
       .then((result) => {
         result.items.forEach((element) => {
           let pdf;
-          element.getDownloadURL().then((url) => {
-            pdf = url;
-            this.setState({
-              bültenler: [
-                ...this.state.bültenler,
-                { bültenName: element.name, url: pdf },
-              ],
-            });
-          });
+          element
+            .getDownloadURL()
+            .then((url) => {
+              pdf = url;
+              this.setState({
+                bültenler: [
+                  ...this.state.bültenler,
+                  { bültenName: element.name, url: pdf },
+                ],
+              });
+            })
+            .then(() => this.setState({ loading: false }));
         });
       });
   }
@@ -44,31 +47,41 @@ class Bültenler extends React.Component {
             <div className="row">
               <div className="col-xl-12">
                 <div className="section_title text-center mb-50">
-                  <h3>Bültenlerimiz...</h3>
+                  <h3>
+                    {this.props.language == "tr"
+                      ? "Bültenlerimiz..."
+                      : this.props.language == "en"
+                      ? "News..."
+                      : "Les Bulletins..."}
+                  </h3>
                 </div>
               </div>
             </div>
 
-            <div className="row justify-content-center">
-              {this.state.bültenler.map((e, index) => {
-                return (
-                  <div key={index} className="col-xl-3 col-md-6 col-lg-3">
-                    <div className="single_service text-center">
-                      <a href={e.url} target="_blank">
-                        <div className="service_icon">
-                          <FontAwesomeIcon
-                            icon={faFilePdf}
-                            size="5x"
-                            color="#F40F02"
-                          ></FontAwesomeIcon>
-                        </div>
-                        <h3>{e.bültenName}</h3>
-                      </a>
+            {this.state.loading ? (
+              <div className="loader"></div>
+            ) : (
+              <div className="row justify-content-center">
+                {this.state.bültenler.map((e, index) => {
+                  return (
+                    <div key={index} className="col-xl-3 col-md-6 col-lg-3">
+                      <div className="single_service text-center">
+                        <a href={e.url} target="_blank">
+                          <div className="service_icon">
+                            <FontAwesomeIcon
+                              icon={faFilePdf}
+                              size="5x"
+                              color="#F40F02"
+                            ></FontAwesomeIcon>
+                          </div>
+                          <h3>{e.bültenName}</h3>
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
         <InformationArea language={this.props.language}></InformationArea>
