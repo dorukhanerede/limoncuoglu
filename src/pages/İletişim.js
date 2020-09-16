@@ -38,7 +38,11 @@ class İletişim extends React.Component {
           adres1: snap.data().adres1,
           adres2: snap.data().adres2,
           telNo: snap.data().telNo,
-          çalışmaSaatleri: {tr: snap.data().çalışmaSaatleri,en: snap.data().çalışmaSaatleriEn, fr: snap.data().çalışmaSaatleriFr},
+          çalışmaSaatleri: {
+            tr: snap.data().çalışmaSaatleri,
+            en: snap.data().çalışmaSaatleriEn,
+            fr: snap.data().çalışmaSaatleriFr,
+          },
         });
       })
       .then(() => this.setState({ loading: false }));
@@ -67,7 +71,9 @@ class İletişim extends React.Component {
           "We wish to serve you, and provide our office information below so that you can reach us at any time.";
         break;
       case "fr":
-        p = "baguet";
+        p =
+          "Notre informations de contact est sous dessous. Vous pouvez nous atteindre en cas de besoin. Nous esperons de vous aider.";
+        break;
       default:
         p =
           "Sizlere hizmet etmeyi diler, istenildiği zaman tarafımıza ulaşabilmeniz için büromuz bilgilerini aşağıda bilgilerinize sunarız.";

@@ -44,6 +44,7 @@ class HizmetlerimizAdmin extends React.Component {
       frHeader: "",
       frInfo: "",
       docId: "",
+      iconName: "",
     });
   }
 
@@ -105,22 +106,20 @@ class HizmetlerimizAdmin extends React.Component {
     }
   };
 
-  handleClose = (isSave) => {
+  handleClose = async (isSave) => {
     this.setState({ show: false });
     if (isSave) {
+      const firestore = firebase.firestore().collection("hizmetlerimiz");
       if (!this.state.docId) {
-        firebase
-          .firestore()
-          .collection("hizmetlerimiz")
-          .add({
-            serviceData: {
-              order: Object.keys(this.state.services).length + 1,
-              icon: this.state.iconName,
-            },
-            tr: { header: this.state.trHeader, info: this.state.trInfo },
-            en: { header: this.state.enHeader, info: this.state.enInfo },
-            fr: { header: this.state.frHeader, info: this.state.frInfo },
-          });
+        firestore.add({
+          serviceData: {
+            order: Object.keys(this.state.services).length + 1,
+            icon: this.state.iconName,
+          },
+          tr: { header: this.state.trHeader, info: this.state.trInfo },
+          en: { header: this.state.enHeader, info: this.state.enInfo },
+          fr: { header: this.state.frHeader, info: this.state.frInfo },
+        });
         firebase
           .storage()
           .ref()
@@ -134,6 +133,50 @@ class HizmetlerimizAdmin extends React.Component {
               },
             });
           });
+      } else {
+        let photoChanged =
+          this.state.iconName !=
+          this.state.services[this.state.docId].serviceData.icon;
+        if (photoChanged) {
+          const iconNameBefore = this.state.services[this.state.docId]
+            .serviceData.icon;
+          const storage = firebase.storage().ref();
+          await storage
+            .child("hizmetlerimiz/" + iconNameBefore)
+            .delete()
+            .then(() =>
+              storage
+                .child("hizmetlerimiz/" + this.state.iconName)
+                .put(this.state.icon)
+                .then(() => {
+                  let icons = this.state.icons;
+                  let newIcons = {};
+                  Object.keys(icons).map((element) => {
+                    if (element != iconNameBefore) {
+                      newIcons = { ...newIcons, [element]: icons[element] };
+                    } else
+                      newIcons = {
+                        ...newIcons,
+                        [this.state.iconName]: URL.createObjectURL(
+                          this.state.icon
+                        ),
+                      };
+                  });
+                  this.setState({
+                    icons: newIcons,
+                  });
+                })
+            );
+        }
+        await firestore.doc(this.state.docId).update({
+          "serviceData.icon": this.state.iconName,
+          "tr.header": this.state.trHeader,
+          "tr.info": this.state.trInfo,
+          "en.header": this.state.enHeader,
+          "en.info": this.state.enInfo,
+          "fr.header": this.state.frHeader,
+          "fr.info": this.state.frInfo,
+        });
       }
     }
   };
@@ -146,8 +189,63 @@ class HizmetlerimizAdmin extends React.Component {
 
   handleDelete = (doc) => {
     const icon = this.state.services[doc].serviceData.icon;
-    firebase.firestore().collection("hizmetlerimiz").doc(doc).delete();
+    const order = this.state.services[doc].serviceData.order;
+    const firestore = firebase.firestore().collection("hizmetlerimiz");
+    firestore
+      .doc(doc)
+      .delete()
+      .then(() => {
+        firestore
+          .where("serviceData.order", ">", order)
+          .get()
+          .then((docs) => {
+            docs.docs.forEach((doc) => {
+              if (doc.exists)
+                firestore.doc(doc.id).update({
+                  "serviceData.order": firebase.firestore.FieldValue.increment(
+                    -1
+                  ),
+                });
+            });
+          });
+      });
     firebase.storage().ref("hizmetlerimiz").child(icon).delete();
+  };
+
+  handleDecreaseOrder = (doc) => {
+    const secondDocIndex =
+      Object.keys(this.state.services).findIndex((element) => element === doc) -
+      1;
+    const secondDoc = Object.keys(this.state.services)[secondDocIndex];
+    const ref = firebase.firestore().collection("hizmetlerimiz");
+    ref
+      .doc(doc)
+      .update({
+        "serviceData.order": firebase.firestore.FieldValue.increment(-1),
+      })
+      .then(() => {
+        ref.doc(secondDoc).update({
+          "serviceData.order": firebase.firestore.FieldValue.increment(1),
+        });
+      });
+  };
+
+  handleIncreaseOrder = (doc) => {
+    const secondDocIndex =
+      Object.keys(this.state.services).findIndex((element) => element === doc) +
+      1;
+    const secondDoc = Object.keys(this.state.services)[secondDocIndex];
+    const ref = firebase.firestore().collection("hizmetlerimiz");
+    ref
+      .doc(doc)
+      .update({
+        "serviceData.order": firebase.firestore.FieldValue.increment(1),
+      })
+      .then(() => {
+        ref.doc(secondDoc).update({
+          "serviceData.order": firebase.firestore.FieldValue.increment(-1),
+        });
+      });
   };
 
   render() {
@@ -157,17 +255,26 @@ class HizmetlerimizAdmin extends React.Component {
     return this.state.loading ? (
       <div className="loader"></div>
     ) : (
-      <div className="service_area">
+      <div className="service_area" style={{ paddingTop: "40px" }}>
         <div className="row justify-content-center">
           {serviceKeys.map((doc, e) => {
             return (
               <div key={"service_" + e} className="col-xl-3 col-md-6 col-lg-3">
                 <div
                   className="position-absolute"
-                  style={{ right: "5%", top: "5%" }}
+                  style={{
+                    right: "5%",
+                    top: "2%",
+                    border: "1px solid #e8e8e8",
+                    borderRadius: "10px",
+                    padding: "5px",
+                  }}
                 >
                   {services[doc].serviceData.order == 1 ? null : (
-                    <a style={{ cursor: "pointer" }}>
+                    <a
+                      style={{ cursor: "pointer" }}
+                      onClick={() => this.handleDecreaseOrder(doc)}
+                    >
                       <FontAwesomeIcon
                         icon={
                           services[doc].serviceData.order % 4 == 1
@@ -175,13 +282,17 @@ class HizmetlerimizAdmin extends React.Component {
                             : faArrowLeft
                         }
                         className="mx-1"
-                        size="1x"
+                        size="lg"
+                        // transform="shrink-3"
                       />
                     </a>
                   )}
                   {services[doc].serviceData.order ==
                   serviceKeys.length ? null : (
-                    <a style={{ cursor: "pointer" }}>
+                    <a
+                      style={{ cursor: "pointer" }}
+                      onClick={() => this.handleIncreaseOrder(doc)}
+                    >
                       <FontAwesomeIcon
                         icon={
                           services[doc].serviceData.order % 4 == 0
@@ -189,7 +300,7 @@ class HizmetlerimizAdmin extends React.Component {
                             : faArrowRight
                         }
                         className="mx-1"
-                        size="1x"
+                        size="lg"
                       />
                     </a>
                   )}
@@ -197,7 +308,7 @@ class HizmetlerimizAdmin extends React.Component {
                     style={{ cursor: "pointer" }}
                     onClick={() => this.handleShow(doc)}
                   >
-                    <FontAwesomeIcon icon={faEdit} className="mx-1" size="1x" />
+                    <FontAwesomeIcon icon={faEdit} className="mx-1" size="lg" />
                   </a>
                   <a
                     style={{ cursor: "pointer" }}
@@ -208,12 +319,18 @@ class HizmetlerimizAdmin extends React.Component {
                     <FontAwesomeIcon
                       icon={faTrashAlt}
                       className="mx-1"
-                      size="1x"
+                      size="lg"
                     />
                   </a>
                 </div>
-                <div className="single_service text-center">
-                  <div className={"service_icon service_icon_" + (e % 4)}>
+                <div
+                  className="single_service text-center"
+                  style={{ border: "1px solid #e8e8e8" }}
+                >
+                  <div
+                    className={"service_icon"}
+                    style={{ border: "1px solid #e8e8e8", borderRadius: "50%" }}
+                  >
                     <img
                       src={
                         !this.state.icons[services[doc].serviceData.icon]
@@ -222,11 +339,13 @@ class HizmetlerimizAdmin extends React.Component {
                       }
                       alt={"service_image_" + e}
                       height="39.626px"
-                      style={{ filter: "brightness(0) invert(1)" }}
+                      style={{
+                        filter: "brightness(0)",
+                      }}
                     />
                   </div>
                   <h3>{services[doc].tr.header}</h3>
-                  <p>{services[doc].tr.info}</p>
+                  <p className="service_info">{services[doc].tr.info}</p>
                 </div>
               </div>
             );
@@ -267,8 +386,10 @@ class HizmetlerimizAdmin extends React.Component {
                     className="form-control"
                     id="inputHeaderEn"
                     placeholder="İngilizce Başlık"
-                    defaultValue={this.state.entrInfo}
-                    onChange={(e) => this.setState({ trInfo: e.target.value })}
+                    defaultValue={this.state.enHeader}
+                    onChange={(e) =>
+                      this.setState({ enHeader: e.target.value })
+                    }
                   />
                 </div>
                 <div className="form-group col">
@@ -278,9 +399,9 @@ class HizmetlerimizAdmin extends React.Component {
                     className="form-control"
                     id="inputHeaderFr"
                     placeholder="Fransızca Başlık"
-                    defaultValue={this.state.enHeader}
+                    defaultValue={this.state.frHeader}
                     onChange={(e) =>
-                      this.setState({ enHeader: e.target.value })
+                      this.setState({ frHeader: e.target.value })
                     }
                   />
                 </div>
@@ -292,8 +413,9 @@ class HizmetlerimizAdmin extends React.Component {
                   className="form-control"
                   id="inputInfoTr"
                   placeholder="Türkçe Açıklama"
-                  defaultValue={this.state.enInfo}
-                  onChange={(e) => this.setState({ enInfo: e.target.value })}
+                  maxLength="200"
+                  defaultValue={this.state.trInfo}
+                  onChange={(e) => this.setState({ trInfo: e.target.value })}
                 />
               </div>
               <div className="form-group">
@@ -303,8 +425,9 @@ class HizmetlerimizAdmin extends React.Component {
                   className="form-control"
                   id="inputInfoEn"
                   placeholder="İngilizce Açıklama"
-                  defaultValue={this.state.frHeader}
-                  onChange={(e) => this.setState({ frHeader: e.target.value })}
+                  maxLength="200"
+                  defaultValue={this.state.enInfo}
+                  onChange={(e) => this.setState({ enInfo: e.target.value })}
                 />
               </div>
               <div className="form-group">
@@ -314,6 +437,7 @@ class HizmetlerimizAdmin extends React.Component {
                   className="form-control"
                   id="inputInfoFr"
                   placeholder="Fransızca Açıklama"
+                  maxLength="200"
                   defaultValue={this.state.frInfo}
                   onChange={(e) => this.setState({ frInfo: e.target.value })}
                 />
@@ -334,7 +458,7 @@ class HizmetlerimizAdmin extends React.Component {
                         height="39.626px"
                         height="40px"
                         style={{
-                          filter: "brightness(1) invert(1)",
+                          filter: "brightness(0)",
                         }}
                       />
                     )}
@@ -384,8 +508,8 @@ class HizmetlerimizAdmin extends React.Component {
           style={{
             cursor: "pointer",
             position: "absolute",
-            right: "20px",
-            bottom: "15px",
+            right: "5%",
+            // bottom: "15px",
           }}
           onClick={() => this.handleShow()}
         >

@@ -4091,6 +4091,14 @@ h3 {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#615cfd', endColorstr='#d465ef',GradientType=0 );
 }
 
+.service_info {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
 /* .service_area .col-xl-3 .single_service .service_icon_4 {
   background: #a64eee;
   background: -moz-linear-gradient(top, #a64eee 0%, #3c35ce 100%);
