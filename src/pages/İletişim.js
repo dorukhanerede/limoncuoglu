@@ -60,23 +60,47 @@ class İletişim extends React.Component {
   );
 
   render() {
-    let p;
+    let p, emergencyPhone;
     switch (this.props.language) {
       case "tr":
         p =
           "Sizlere hizmet etmeyi diler, istenildiği zaman tarafımıza ulaşabilmeniz için büromuz bilgilerini aşağıda bilgilerinize sunarız.";
+        emergencyPhone = (
+          <h4>
+            Acil durumda şu numarayı arayabilirsiniz:
+            <a href="tel:+905326146626"> 0 532 614 66 26</a>
+          </h4>
+        );
         break;
       case "en":
         p =
           "We wish to serve you, and provide our office information below so that you can reach us at any time.";
+        emergencyPhone = (
+          <h4>
+            In case of emergency, you can reach us from:
+            <a href="tel:+905326146626"> 0 532 614 66 26</a>
+          </h4>
+        );
         break;
       case "fr":
         p =
           "Notre informations de contact est sous dessous. Vous pouvez nous atteindre en cas de besoin. Nous esperons de vous aider.";
+        emergencyPhone = (
+          <h4>
+            En cas d'urgence vous pouvez utiliser:
+            <a href="tel:+905326146626"> 0 532 614 66 26</a>
+          </h4>
+        );
         break;
       default:
         p =
           "Sizlere hizmet etmeyi diler, istenildiği zaman tarafımıza ulaşabilmeniz için büromuz bilgilerini aşağıda bilgilerinize sunarız.";
+        emergencyPhone = (
+          <div>
+            Acil durumda şu numarayı arayabilirsiniz:
+            <a href="tel:+905326146626"> 0 532 614 66 26</a>
+          </div>
+        );
     }
     return (
       <section>
@@ -84,6 +108,8 @@ class İletişim extends React.Component {
         <div className="sample-text-area">
           <div className="container">
             <h4>{p}</h4>
+            <br></br>
+            {emergencyPhone}
             <br></br>
             <br></br>
             {this.state.loading ? (
