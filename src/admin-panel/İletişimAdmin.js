@@ -14,7 +14,7 @@ class İletişimAdmin extends React.Component {
       telNo: "",
       çalışmaSaatleri: "",
       çalışmaSaatleriEn: "",
-      çalışmaSaatleriFr:"",
+      çalışmaSaatleriFr: "",
     };
   }
   componentWillMount() {
@@ -32,7 +32,7 @@ class İletişimAdmin extends React.Component {
           telNo: snap.data().telNo,
           çalışmaSaatleri: snap.data().çalışmaSaatleri,
           çalışmaSaatleriEn: snap.data().çalışmaSaatleriEn,
-          çalışmaSaatleriFr: snap.data().çalışmaSaatleriFr
+          çalışmaSaatleriFr: snap.data().çalışmaSaatleriFr,
         });
       })
       .then(() => this.setState({ loading: false }));
@@ -81,7 +81,7 @@ class İletişimAdmin extends React.Component {
             <div className="loader"></div>
           </section>
         ) : (
-          <form>
+          <form className="p-4">
             <div className="form-group">
               <label htmlFor="inputEmail1">Email</label>
               <input
@@ -139,38 +139,38 @@ class İletişimAdmin extends React.Component {
             </div>
             <label htmlFor="çalışmaInputs">Çalışma Saatleri</label>
             <div className="form-group form-row" id="çalışmaInputs">
-            <div className="col">
-              <label htmlFor="inputÇalışma">Türkçe</label>
-              <input
-                type="text"
-                className="form-control col"
-                id="inputÇalışma"
-                placeholder="Pazartesi - Cuma 9:00 ile 18:00 arası"
-                defaultValue={çalışmaSaatleri}
-                onChange={(e) => (çalışmaSaatleri = e.target.value)}
-              />
+              <div className="col">
+                <label htmlFor="inputÇalışma">Türkçe</label>
+                <input
+                  type="text"
+                  className="form-control col"
+                  id="inputÇalışma"
+                  placeholder="Pazartesi - Cuma 9:00 ile 18:00 arası"
+                  defaultValue={çalışmaSaatleri}
+                  onChange={(e) => (çalışmaSaatleri = e.target.value)}
+                />
               </div>
               <div className="col">
-              <label htmlFor="inputÇalışmaEn">İngilizce</label>
-              <input
-                type="text"
-                className="form-control col"
-                id="inputÇalışmaEn"
-                placeholder="Pazartesi - Cuma 9:00 ile 18:00 arası"
-                defaultValue={çalışmaSaatleriEn}
-                onChange={(e) => (çalışmaSaatleriEn = e.target.value)}
-              />
+                <label htmlFor="inputÇalışmaEn">İngilizce</label>
+                <input
+                  type="text"
+                  className="form-control col"
+                  id="inputÇalışmaEn"
+                  placeholder="Pazartesi - Cuma 9:00 ile 18:00 arası"
+                  defaultValue={çalışmaSaatleriEn}
+                  onChange={(e) => (çalışmaSaatleriEn = e.target.value)}
+                />
               </div>
               <div className="col">
-              <label htmlFor="inputÇalışmaFr">Fransızca</label>
-              <input
-                type="text"
-                className="form-control col"
-                id="inputÇalışmaFr"
-                placeholder="Pazartesi - Cuma 9:00 ile 18:00 arası"
-                defaultValue={çalışmaSaatleriFr}
-                onChange={(e) => (çalışmaSaatleriFr = e.target.value)}
-              />
+                <label htmlFor="inputÇalışmaFr">Fransızca</label>
+                <input
+                  type="text"
+                  className="form-control col"
+                  id="inputÇalışmaFr"
+                  placeholder="Pazartesi - Cuma 9:00 ile 18:00 arası"
+                  defaultValue={çalışmaSaatleriFr}
+                  onChange={(e) => (çalışmaSaatleriFr = e.target.value)}
+                />
               </div>
             </div>
             <div className="m-4 text-right">

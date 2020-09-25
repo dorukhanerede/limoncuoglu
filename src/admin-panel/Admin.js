@@ -66,15 +66,15 @@ function Admin() {
 
   return (
     <div className={toggleMenu ? "d-flex toggled" : "d-flex"} id="wrapper">
-      <div className="bg-light border-right" id="sidebar-wrapper">
+      <div className="bg-dark border-right-nav text-white" id="sidebar-wrapper">
         <div className="sidebar-heading">Limoncuoğlu Admin </div>
         <div className="list-group list-group-flush">
           <a
             onClick={() => setMain("Anasayfa")}
             className={
               main == "Anasayfa"
-                ? "list-group-item list-group-item-action bg-light side-active"
-                : "list-group-item list-group-item-action bg-light"
+                ? "list-group-item list-group-item-action bg-dark side-active"
+                : "list-group-item list-group-item-action bg-custom"
             }
           >
             Anasayfa
@@ -83,8 +83,8 @@ function Admin() {
             onClick={() => setMain("Hakkımızda")}
             className={
               main == "Hakkımızda"
-                ? "list-group-item list-group-item-action bg-light side-active"
-                : "list-group-item list-group-item-action bg-light"
+                ? "list-group-item list-group-item-action bg-dark side-active"
+                : "list-group-item list-group-item-action bg-custom"
             }
           >
             Hakkımızda
@@ -93,8 +93,8 @@ function Admin() {
             onClick={() => setMain("Ekibimiz")}
             className={
               main == "Ekibimiz"
-                ? "list-group-item list-group-item-action bg-light side-active"
-                : "list-group-item list-group-item-action bg-light"
+                ? "list-group-item list-group-item-action bg-dark side-active"
+                : "list-group-item list-group-item-action bg-custom"
             }
           >
             Ekibimiz
@@ -103,8 +103,8 @@ function Admin() {
             onClick={() => setMain("Bültenler")}
             className={
               main == "Bültenler"
-                ? "list-group-item list-group-item-action bg-light side-active"
-                : "list-group-item list-group-item-action bg-light"
+                ? "list-group-item list-group-item-action bg-dark side-active"
+                : "list-group-item list-group-item-action bg-custom"
             }
           >
             Bültenler
@@ -113,8 +113,8 @@ function Admin() {
             onClick={() => setMain("Hizmetlerimiz")}
             className={
               main == "Hizmetlerimiz"
-                ? "list-group-item list-group-item-action bg-light side-active"
-                : "list-group-item list-group-item-action bg-light"
+                ? "list-group-item list-group-item-action bg-dark side-active"
+                : "list-group-item list-group-item-action bg-custom"
             }
           >
             Hizmetlerimiz
@@ -123,8 +123,8 @@ function Admin() {
             onClick={() => setMain("İletişim")}
             className={
               main == "İletişim"
-                ? "list-group-item list-group-item-action bg-light side-active"
-                : "list-group-item list-group-item-action bg-light"
+                ? "list-group-item list-group-item-action bg-dark side-active"
+                : "list-group-item list-group-item-action bg-custom"
             }
           >
             İletişim
@@ -132,9 +132,9 @@ function Admin() {
         </div>
       </div>
       <div id="page-content-wrapper">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom-nav">
           <button
-            className="btn btn-primary"
+            className="btn btn-info"
             id="menu-toggle"
             onClick={handleButtonPress}
           >

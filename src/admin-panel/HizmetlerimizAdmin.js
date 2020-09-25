@@ -79,11 +79,19 @@ class HizmetlerimizAdmin extends React.Component {
             icons = { ...icons, [elementName]: img };
           })
           .then(() => {
-            this.setState({ icons: icons, loading: false });
+            this.setState({ icons: icons });
+          })
+          .then(() => {
+            setTimeout(() => {
+              this.setState({ loading: false });
+            }, 1000);
           })
           .catch((err) => console.log(err));
       });
-      if (result.items.length == 0) this.setState({ loading: false });
+      if (result.items.length == 0)
+        setTimeout(() => {
+          this.setState({ loading: false });
+        }, 1000);
     });
   }
 

@@ -95,11 +95,19 @@ class EkibimizAdmin extends React.Component {
             images = { ...images, [elementName]: img };
           })
           .then(() => {
-            this.setState({ images: images, loading: false });
+            this.setState({ images: images });
+          })
+          .then(() => {
+            setTimeout(() => {
+              this.setState({ loading: false });
+            }, 1000);
           })
           .catch((err) => console.log(err));
       });
-      if (result.items.length == 0) this.setState({ loading: false });
+      if (result.items.length == 0)
+        setTimeout(() => {
+          this.setState({ loading: false });
+        }, 1000);
     });
   }
 

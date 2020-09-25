@@ -50,5 +50,22 @@
 }
 
 .side-active {
-  background-color: #dae0e5 !important;
+  background-color: #a03b3b !important;
+}
+
+.border-right-nav {
+  border-right: 4px solid #a03b3b !important;
+}
+
+.bg-custom {
+  background: rgb(52, 58, 64);
+  background: linear-gradient(
+    90deg,
+    rgba(52, 58, 64, 1) 67%,
+    rgba(160, 59, 59, 1) 100%
+  );
+}
+
+.border-bottom-nav {
+  border-bottom: 4px solid #a03b3b !important;
 }
