@@ -76,6 +76,7 @@ function Admin() {
                 ? "list-group-item list-group-item-action bg-dark side-active"
                 : "list-group-item list-group-item-action bg-custom"
             }
+            style={{ cursor: "default" }}
           >
             Anasayfa
           </a>
@@ -86,6 +87,7 @@ function Admin() {
                 ? "list-group-item list-group-item-action bg-dark side-active"
                 : "list-group-item list-group-item-action bg-custom"
             }
+            style={{ cursor: "default" }}
           >
             Hakkımızda
           </a>
@@ -96,6 +98,7 @@ function Admin() {
                 ? "list-group-item list-group-item-action bg-dark side-active"
                 : "list-group-item list-group-item-action bg-custom"
             }
+            style={{ cursor: "default" }}
           >
             Ekibimiz
           </a>
@@ -106,6 +109,7 @@ function Admin() {
                 ? "list-group-item list-group-item-action bg-dark side-active"
                 : "list-group-item list-group-item-action bg-custom"
             }
+            style={{ cursor: "default" }}
           >
             Bültenler
           </a>
@@ -116,6 +120,7 @@ function Admin() {
                 ? "list-group-item list-group-item-action bg-dark side-active"
                 : "list-group-item list-group-item-action bg-custom"
             }
+            style={{ cursor: "default" }}
           >
             Hizmetlerimiz
           </a>
@@ -126,6 +131,7 @@ function Admin() {
                 ? "list-group-item list-group-item-action bg-dark side-active"
                 : "list-group-item list-group-item-action bg-custom"
             }
+            style={{ cursor: "default" }}
           >
             İletişim
           </a>
